@@ -2,7 +2,7 @@
 const ObjectID = require('bson').ObjectID;
 
 const data = {
-  scheduleId: (new ObjectID()).toString(),
+  id: (new ObjectID()).toString(),
   schedule: '1 * * * *',
   rest: {
     method: 'POST',

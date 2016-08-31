@@ -46,7 +46,7 @@ describe('BusinessLogics - Schedule - Scheduler - updateSchedule', function() {
 
     scheduler = requireSubvert.require(pathToScheduler);
 
-    stubScheduler = sinon.stub(scheduler, 'arrangeSchedule');
+    stubScheduler = sinon.stub(scheduler, 'setupSchedule');
 
   });
 

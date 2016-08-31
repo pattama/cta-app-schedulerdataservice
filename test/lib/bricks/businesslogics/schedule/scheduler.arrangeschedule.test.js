@@ -18,7 +18,7 @@ const ObjectID = require('bson').ObjectID;
 
 
 
-describe('BusinessLogics - Schedule - Scheduler - arrangeSchedule', function() {
+describe('BusinessLogics - Schedule - Scheduler - setupSchedule', function() {
   let scheduleObj;
   let spyRequester;
   let stubNodeSchedule;
@@ -52,7 +52,7 @@ describe('BusinessLogics - Schedule - Scheduler - arrangeSchedule', function() {
 
   context('when everything ok', function() {
     it('should call http request', function() {
-      scheduler.arrangeSchedule(scheduleObj);
+      scheduler.setupSchedule(scheduleObj);
       stubNodeSchedule.callArg(2);
       expect(spyRequester.calledWith(scheduleObj.rest)).to.be.true;
     });

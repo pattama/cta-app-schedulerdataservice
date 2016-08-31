@@ -92,6 +92,7 @@ describe('DatabaseInterfaces - MongoDB - Find - constructor', function() {
         it('should emit done event on inputContext', function() {
           // mongodoc
           const doc = {
+            _id: '!@#$%^&*()_+',
             foo: 'bar',
           };
           const response = [doc];
