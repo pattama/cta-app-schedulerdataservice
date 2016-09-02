@@ -11,7 +11,7 @@ const pathToHelper = nodepath.join(appRootPath,
   '/lib/bricks/businesslogics/schedule/helpers/', 'create.js');
 let Helper = require(pathToHelper);
 const pathToSchedule = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/models/', 'schedule.js');
+  '/lib/utils/datamodels', 'schedule.js');
 const Schedule = require(pathToSchedule);
 
 const DEFAULTCONFIG = require('../index.config.testdata.js');

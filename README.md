@@ -1,1 +1,1 @@
-# Application Boilerplate for Compass Test Automation
+# Application Scheduler for Compass Test Automation

@@ -5,13 +5,14 @@ const sinon = require('sinon');
 const nodepath = require('path');
 const ObjectID = require('bson').ObjectID;
 const requireSubvert = require('require-subvert')(__dirname);
-const _ = require('lodash');
 
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
 const pathToHelper = nodepath.join(appRootPath,
   '/lib/bricks/dbinterfaces/mongodbinterface/helpers/', 'updateone.js');
 let Helper = require(pathToHelper);
+const scheduleSchema = require(nodepath.join(appRootPath,
+  '/lib/bricks/dbinterfaces/mongodbinterface/schemas/', 'schedule.js'));
 
 const DEFAULTCONFIG = require('../index.config.testdata.js');
 const DEFAULTLOGGER = new Logger(null, null, DEFAULTCONFIG.name);
@@ -26,7 +27,7 @@ const DEFAULTCEMENTHELPER = {
   createContext: function() {},
 };
 
-describe('DatabaseInterfaces - MongoDB - UpdateOne - constructor', function() {
+describe('DatabaseInterfaces - MongoDB - UpdateOne - _process', function() {
   let helper;
   const mockId = new ObjectID();
   const inputJOB = {
@@ -38,7 +39,7 @@ describe('DatabaseInterfaces - MongoDB - UpdateOne - constructor', function() {
       type: 'schedule',
       id: mockId.toString(),
       content: {
-        foo: 'bar',
+        schedule: '* * * * *',
       },
     },
   };
@@ -62,7 +63,7 @@ describe('DatabaseInterfaces - MongoDB - UpdateOne - constructor', function() {
         _id: new ObjectID(inputJOB.payload.id),
       };
       mongoDbDocument = {
-        $set: inputJOB.payload.content,
+        $set: new scheduleSchema(inputJOB.payload.content),
       };
       const mongoDbOptions = {
         returnOriginal: false,
@@ -85,7 +86,7 @@ describe('DatabaseInterfaces - MongoDB - UpdateOne - constructor', function() {
       mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJOB);
       mockOutputContext.publish = sinon.stub();
       sinon.stub(helper.cementHelper, 'createContext')
-        .withArgs(outputJOB)
+        //.withArgs(outputJOB)
         .returns(mockOutputContext);
       helper._process(mockInputContext);
     });
@@ -103,8 +104,8 @@ describe('DatabaseInterfaces - MongoDB - UpdateOne - constructor', function() {
           const responseDocument = {
             _id: mockId,
           };
-          const responseObject = _.omit(responseDocument, ['_id']);
-          responseObject.id = responseDocument._id.toString();
+          //const responseObject = _.omit(responseDocument, ['_id']);
+          //responseObject.id = responseDocument._id.toString();
           const response = {
             ok: 1,
             value: responseDocument,
@@ -112,7 +113,7 @@ describe('DatabaseInterfaces - MongoDB - UpdateOne - constructor', function() {
 
           mockOutputContext.emit('done', 'dblayer', response);
           sinon.assert.calledWith(mockInputContext.emit,
-            'done', helper.cementHelper.brickName, responseObject);
+            'done', helper.cementHelper.brickName);
         });
       });
 

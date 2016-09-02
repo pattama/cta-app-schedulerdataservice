@@ -8,6 +8,8 @@ const EventEmitter = require('events');
 const Logger = require('cta-logger');
 const Handler = require(nodepath.join(appRootPath,
   '/lib/utils/restapi/handlers/', 'schedules.js'));
+const Schedule = require(nodepath.join(appRootPath,
+  '/lib/utils/datamodels/', 'schedule.js'));
 
 const DEFAULTLOGGER = new Logger();
 const DEFAULTCEMENTHELPER = {
@@ -50,7 +52,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - find', function() {
           _id: -1
         },
       };
-      const query = _.omit(req.query, Object.keys(filter));
+      const query = Schedule.convertQueryStrings(_.omit(req.query, Object.keys(filter)));
       sinonCustomMatcher = sinon.match(function(data) {
         return _.isEqual(data, {
           nature: {

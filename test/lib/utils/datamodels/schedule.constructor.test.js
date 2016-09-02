@@ -6,10 +6,10 @@ const expect = chai.expect;
 const nodepath = require('path');
 
 const Model = require(nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/models', 'schedule.js'));
+  '/lib/utils/datamodels', 'schedule.js'));
 const data = require('./schedule.data.testdata.js');
 
-describe('BusinessLogics - Schedule - Model - Schedule', function() {
+describe('Data Model - Schedule', function() {
   it('should return an Schedule', function() {
     const object = new Model(data);
     expect(object).to.be.an.instanceof(Model);
