@@ -23,7 +23,7 @@ const DEFAULTCEMENTHELPER = {
   createContext: function() {},
 };
 
-describe('DatabaseInterfaces - MongoDB - Find - constructor', function() {
+describe('DatabaseInterfaces - MongoDB - Find - _process', function() {
   let helper;
   const inputJOB = {
     nature: {
@@ -40,7 +40,7 @@ describe('DatabaseInterfaces - MongoDB - Find - constructor', function() {
         },
       },
       query: {
-        foo: 'bar',
+        enabled: true,
       },
     },
   };
@@ -99,7 +99,7 @@ describe('DatabaseInterfaces - MongoDB - Find - constructor', function() {
 
           mockOutputContext.emit('done', 'dblayer', response);
           sinon.assert.calledWith(mockInputContext.emit,
-            'done', helper.cementHelper.brickName, response);
+            'done', helper.cementHelper.brickName);
         });
       });
     });

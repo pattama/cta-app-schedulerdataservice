@@ -13,7 +13,7 @@ describe('Data Model - Schedule - Keys', function() {
   context('when everything ok', function() {
     it('should return properties', function() {
       const keys = {
-        id: { type: 'objectid' },
+        id: { type: 'identifier' },
         schedule: { type: 'string' },
         rest: {
           type: 'object',
@@ -36,7 +36,7 @@ describe('Data Model - Execution - QueryKeys', function() {
   context('when everything ok', function() {
     it('should return properties', function() {
       const keys = {
-        id: { type: 'objectid', optional: true },
+        id: { type: 'identifier', optional: true },
         enabled: { type: 'boolean', optional: true },
       };
       expect(_.isEqual(Model.queryKeys(), keys)).to.be.equal(true);

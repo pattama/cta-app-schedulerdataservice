@@ -40,7 +40,7 @@ describe('BusinessLogics - Schedule - getAllSchedules', function() {
         },
         payload: {
           type: 'schedule',
-          filter: {},
+          filter: { limit: 0, offset: 0 },
           query: {},
         },
       };
