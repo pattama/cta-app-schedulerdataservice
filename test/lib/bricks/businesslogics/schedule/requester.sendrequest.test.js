@@ -6,6 +6,7 @@ const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const sinon = require('sinon');
 
+const Logger = require('cta-logger');
 const requireSubvert = require('require-subvert')(__dirname);
 const nodepath = require('path');
 const appRootPath = require('app-root-path').path;
@@ -31,7 +32,9 @@ describe('BusinessLogics - Schedule - Requester - sendRequest', function() {
 
     stubRequest = sinon.stub();
     requireSubvert.subvert('request', stubRequest);
-    requester = requireSubvert.require(pathToRequester);
+    //requester = requireSubvert.require(pathToRequester);
+    const Requester = requireSubvert.require(pathToRequester);
+    requester = new Requester(new Logger());
 
   });
 

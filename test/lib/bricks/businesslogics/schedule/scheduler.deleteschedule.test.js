@@ -11,7 +11,7 @@ const pathToScheduler = nodepath.join(appRootPath,
   '/lib/bricks/businesslogics/schedule/', 'scheduler.js');
 
 
-describe('BusinessLogics - Schedule - Scheduler - cancelSchedule', function() {
+describe('BusinessLogics - Schedule - Scheduler - deleteSchedule', function() {
   const scheduleId = '1234567890';
   let stubNodeSchedule;
   let scheduler;
@@ -20,14 +20,14 @@ describe('BusinessLogics - Schedule - Scheduler - cancelSchedule', function() {
     stubNodeSchedule = sinon.stub();
     requireSubvert.subvert('node-schedule', { 'cancelJob': stubNodeSchedule });
 
-    scheduler = requireSubvert.require(pathToScheduler);
-
+    const Scheduler = requireSubvert.require(pathToScheduler);
+    scheduler = new Scheduler();
   });
 
   context('when everything ok', function() {
     it('should call cancel method', function() {
-      scheduler.cancelSchedule(scheduleId);
-      expect(stubNodeSchedule.calledWith(scheduleId)).to.be.true;
+      scheduler.deleteSchedule(scheduleId);
+      sinon.assert.calledWith(stubNodeSchedule, scheduleId);
     });
   });
 });

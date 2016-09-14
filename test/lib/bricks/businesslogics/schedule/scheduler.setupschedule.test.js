@@ -20,7 +20,7 @@ const ObjectID = require('bson').ObjectID;
 
 describe('BusinessLogics - Schedule - Scheduler - setupSchedule', function() {
   let scheduleObj;
-  let spyRequester;
+  let stubDoTrigger;
   let stubNodeSchedule;
   let scheduler;
   before(function() {
@@ -40,13 +40,12 @@ describe('BusinessLogics - Schedule - Scheduler - setupSchedule', function() {
       }
     };
 
-    spyRequester = sinon.spy();
-    requireSubvert.subvert(pathToRequester, { 'sendRequest': spyRequester });
-
     stubNodeSchedule = sinon.stub();
     requireSubvert.subvert('node-schedule', { 'scheduleJob': stubNodeSchedule });
 
-    scheduler = requireSubvert.require(pathToScheduler);
+    const Scheduler = requireSubvert.require(pathToScheduler);
+    scheduler = new Scheduler();
+    stubDoTrigger = sinon.stub(scheduler, 'doTrigger');
 
   });
 
@@ -54,7 +53,7 @@ describe('BusinessLogics - Schedule - Scheduler - setupSchedule', function() {
     it('should call http request', function() {
       scheduler.setupSchedule(scheduleObj);
       stubNodeSchedule.callArg(2);
-      expect(spyRequester.calledWith(scheduleObj.rest)).to.be.true;
+      sinon.assert.calledWith(stubDoTrigger, scheduleObj.id, scheduleObj.rest);
     });
   });
 });

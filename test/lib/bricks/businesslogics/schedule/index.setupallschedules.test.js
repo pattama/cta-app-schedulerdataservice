@@ -50,7 +50,8 @@ describe('BusinessLogics - Schedule - setupAllSchedules', function() {
     };
 
     stubSetupSchedule = sinon.stub();
-    requireSubvert.subvert(pathToScheduler, { 'setupSchedule': stubSetupSchedule });
+    //requireSubvert.subvert(pathToScheduler, { 'setupSchedule': stubSetupSchedule });
+    requireSubvert.subvert(pathToScheduler, function() { return {'setupSchedule': stubSetupSchedule} });
 
     const Logic = requireSubvert.require(logicPath);
     logic = new Logic(DEFAULTCEMENTHELPER, DEFAULTCONFIG);
@@ -65,9 +66,9 @@ describe('BusinessLogics - Schedule - setupAllSchedules', function() {
 
   context('when everything ok', function() {
 
-    it('should arrange all schedules', function() {
+    it('should setup all schedules', function() {
       logic.setupAllSchedules([]);
-      expect(spyLoggerInfo.calledWith('All 0 schedules was setup')).to.be.true;
+      sinon.assert.calledWith(spyLoggerInfo, 'All schedules was setup: 0');
     });
   });
 
@@ -75,7 +76,7 @@ describe('BusinessLogics - Schedule - setupAllSchedules', function() {
 
     it('should print error log', function() {
       logic.setupAllSchedules('foo');
-      expect(spyLoggerError.calledWith('Schedules object is not an array:', 'foo')).to.be.true;
+      sinon.assert.calledWith(spyLoggerError, 'Schedules object is not an array:', 'foo');
     });
   });
 

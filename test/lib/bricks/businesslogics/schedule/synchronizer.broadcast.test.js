@@ -2,19 +2,15 @@
 
 const appRootPath = require('app-root-path').path;
 const sinon = require('sinon');
-const requireSubvert = require('require-subvert')(__dirname);
 const nodepath = require('path');
 
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
-const pathToHelper = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/helpers/', 'create.js');
-let Helper = require(pathToHelper);
-const pathToSchedule = nodepath.join(appRootPath,
-  '/lib/utils/datamodels', 'schedule.js');
-const Schedule = require(pathToSchedule);
+const pathToSynchronizer = nodepath.join(appRootPath,
+  '/lib/bricks/businesslogics/schedule/', 'synchronizer.js');
+const Synchronizer = require(pathToSynchronizer);
 
-const DEFAULTCONFIG = require('../index.config.testdata.js');
+const DEFAULTCONFIG = require('./index.config.testdata.js');
 const DEFAULTLOGGER = new Logger(null, null, DEFAULTCONFIG.name);
 const DEFAULTCEMENTHELPER = {
   constructor: {
@@ -27,23 +23,19 @@ const DEFAULTCEMENTHELPER = {
   createContext: function() {},
 };
 
-describe('BusinessLogics - Schedule - Create - _process', function() {
-  let helper;
+describe('BusinessLogics - Schedule - Synchronizer - broadcast', function() {
+  let synchronizer;
+  let stubCallback;
   context('when everything ok', function() {
-    const inputJOB = {
-      nature: {
-        type: 'schedule',
-        quality: Helper.name.toLowerCase(),
-      },
-      payload: {},
-    };
-    const mockInputContext = new Context(DEFAULTCEMENTHELPER, inputJOB);
     let mockOutputContext;
+    let action;
+    let content;
     let outputJOB;
     before(function() {
-      sinon.stub(mockInputContext, 'emit');
+      stubCallback = sinon.stub();
 
-      const mockSchedule = new Schedule({
+      action = 'create';
+      content = {
         id: 'foo',
         schedule: '* * * * *',
         rest: {
@@ -56,47 +48,47 @@ describe('BusinessLogics - Schedule - Create - _process', function() {
             "nothing in real": 'just to show people can add headers and body'
           }
         }
-      });
-      const StubScheduleConstructor = sinon.stub().returns(mockSchedule);
-      requireSubvert.subvert(pathToSchedule, StubScheduleConstructor);
-      Helper = requireSubvert.require(pathToHelper);
-
+      }
       outputJOB = {
         nature: {
-          type: 'dbinterface',
-          quality: 'insertone',
+          type: 'message',
+          quality: 'publish',
         },
         payload: {
-          type: 'schedule',
-          content: mockSchedule,
+          nature: {
+            type: 'schedule',
+            quality: 'synchronize'
+          },
+          payload: {
+            action: action,
+            content: content
+          }
         },
       };
       mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJOB);
       mockOutputContext.publish = sinon.stub();
 
-      helper = new Helper(DEFAULTCEMENTHELPER, DEFAULTLOGGER);
-      sinon.stub(helper.synchronizer, 'broadcast');
-      sinon.stub(helper.cementHelper, 'createContext')
+      synchronizer = new Synchronizer(DEFAULTCEMENTHELPER, DEFAULTLOGGER);
+      sinon.stub(synchronizer.cementHelper, 'createContext')
         .withArgs(outputJOB)
         .returns(mockOutputContext);
-      helper._process(mockInputContext);
+      synchronizer.broadcast(action, content, stubCallback);
     });
     after(function() {
-      requireSubvert.cleanUp();
-      helper.cementHelper.createContext.restore();
+      synchronizer.cementHelper.createContext.restore();
     });
 
     it('should send a new Context insertone', function() {
-      sinon.assert.calledWith(helper.cementHelper.createContext, outputJOB);
+      sinon.assert.calledWith(synchronizer.cementHelper.createContext, outputJOB);
       sinon.assert.called(mockOutputContext.publish);
     });
 
     context('when outputContext emits done event', function() {
       it('should emit done event on inputContext', function() {
         const response = {};
-        mockOutputContext.emit('done', 'dblayer', response);
-        sinon.assert.calledWith(mockInputContext.emit,
-          'done', helper.cementHelper.brickName, response);
+        mockOutputContext.emit('done', 'scheduler', response);
+        sinon.assert.calledWith(stubCallback,
+          'done', DEFAULTCEMENTHELPER.brickName, response);
       });
     });
 
@@ -105,7 +97,7 @@ describe('BusinessLogics - Schedule - Create - _process', function() {
         const error = new Error('mockError');
         const brickName = 'dbinterface';
         mockOutputContext.emit('reject', brickName, error);
-        sinon.assert.calledWith(mockInputContext.emit,
+        sinon.assert.calledWith(stubCallback,
           'reject', brickName, error);
       });
     });
@@ -115,7 +107,7 @@ describe('BusinessLogics - Schedule - Create - _process', function() {
         const error = new Error('mockError');
         const brickName = 'dbinterface';
         mockOutputContext.emit('error', brickName, error);
-        sinon.assert.calledWith(mockInputContext.emit,
+        sinon.assert.calledWith(stubCallback,
           'error', brickName, error);
       });
     });

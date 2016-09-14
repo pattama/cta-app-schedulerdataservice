@@ -41,11 +41,11 @@ describe('BusinessLogics - Schedule - start', function() {
   context('when everything ok', function() {
 
     it('should arrange all schedules', function() {
-      const spyArrangeAllSchedules = sinon.spy(logic, 'setupAllSchedules');
+      const spySetupAllSchedules = sinon.spy(logic, 'setupAllSchedules');
       const array = [];
       logic.start();
       stubGetAllSchedules.callArgWith(0, 'done', array);
-      expect(spyArrangeAllSchedules.calledWith(array)).to.be.true;
+      sinon.assert.calledWith(spySetupAllSchedules, array);
     });
   });
 
@@ -54,7 +54,7 @@ describe('BusinessLogics - Schedule - start', function() {
     it('should print log', function() {
       logic.start();
       stubGetAllSchedules.callArgWith(0, 'error', 'foo');
-      expect(spyLoggerError.calledWith('Cannot query schedules from DB. error: foo')).to.be.true;
+      sinon.assert.calledWith(spyLoggerError, 'Cannot query schedules from DB. error: foo');
     });
   });
 });
