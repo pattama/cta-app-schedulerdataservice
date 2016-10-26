@@ -1,5 +1,4 @@
 # Application Scheduler for Compass Test Automation
-# Application Scheduler for Compass Test Automation
 
 #### Rest API
 * [Setup a schedule](#setup-a-scehdule)
