@@ -26,7 +26,6 @@ describe('BusinessLogics - Schedule - Delete - _process', function() {
   let helper;
   before(function() {
     helper = new Helper(DEFAULTCEMENTHELPER, DEFAULTLOGGER);
-    sinon.stub(helper.synchronizer, 'broadcast');
   });
   context('when everything ok', function() {
     const inputJOB = {
@@ -71,6 +70,8 @@ describe('BusinessLogics - Schedule - Delete - _process', function() {
       it('should emit done event on inputContext', function() {
         const response = {};
         const brickName = 'dbinterface';
+        const stubBroadcast = sinon.stub(helper.synchronizer, 'broadcast');
+        stubBroadcast.callsArgWith(2, 'done', brickName, response);
         mockOutputContext.emit('done', brickName, response);
         sinon.assert.calledWith(mockInputContext.emit,
           'done', helper.cementHelper.brickName, response);

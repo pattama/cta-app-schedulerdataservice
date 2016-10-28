@@ -59,6 +59,7 @@ describe('BusinessLogics - Schedule - Scheduler - doTrigger', function() {
 
   context('when everything ok', function() {
     it('should call http request', function() {
+      stubSendRequest.returns(Promise.resolve());
       scheduler.doTrigger(scheduleObj.id, scheduleObj.rest);
       stubReserveSchedule.callArgWith(1, 'done', 'brickName', 'not null');
       sinon.assert.calledOnce(stubLoggerInfo);

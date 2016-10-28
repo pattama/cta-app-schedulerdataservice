@@ -75,7 +75,6 @@ describe('BusinessLogics - Schedule - Create - _process', function() {
       mockOutputContext.publish = sinon.stub();
 
       helper = new Helper(DEFAULTCEMENTHELPER, DEFAULTLOGGER);
-      sinon.stub(helper.synchronizer, 'broadcast');
       sinon.stub(helper.cementHelper, 'createContext')
         .withArgs(outputJOB)
         .returns(mockOutputContext);
@@ -94,6 +93,8 @@ describe('BusinessLogics - Schedule - Create - _process', function() {
     context('when outputContext emits done event', function() {
       it('should emit done event on inputContext', function() {
         const response = {};
+        const stubBroadcast = sinon.stub(helper.synchronizer, 'broadcast');
+        stubBroadcast.callsArgWith(2, 'done', 'dblayer', response);
         mockOutputContext.emit('done', 'dblayer', response);
         sinon.assert.calledWith(mockInputContext.emit,
           'done', helper.cementHelper.brickName, response);
