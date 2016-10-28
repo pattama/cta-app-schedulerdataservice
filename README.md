@@ -11,7 +11,7 @@
 ```ruby
 POST /schedules
 {
-  "schedule": "* * * * *",
+  "schedule": "* * * * *", // cron string or timestamp(number)
   "rest": {
     "method": "POST",
     "url": "http://www.google.com",
@@ -24,6 +24,7 @@ POST /schedules
   }
 }
 ```
+
 **Response**
 ```ruby
 {
