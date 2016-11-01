@@ -40,21 +40,23 @@ describe('BusinessLogics - Schedule - start', function() {
 
   context('when everything ok', function() {
 
-    it('should arrange all schedules', function() {
-      const spySetupAllSchedules = sinon.spy(logic, 'setupAllSchedules');
-      const array = [];
-      logic.start();
-      stubGetAllSchedules.callArgWith(0, 'done', array);
-      sinon.assert.calledWith(spySetupAllSchedules, array);
+    it('should setup all schedules', function() {
+      const spySetupAllSchedules = sinon.stub(logic, 'setupAllSchedules');
+      const schedulesResult = ['aa'];
+      stubGetAllSchedules.returns(Promise.resolve(schedulesResult));
+      return logic.start().then(() => {
+        sinon.assert.calledWith(spySetupAllSchedules, schedulesResult);
+      })
     });
   });
 
   context('when getAllSchedules method return error', function() {
 
     it('should print log', function() {
-      logic.start();
-      stubGetAllSchedules.callArgWith(0, 'error', 'foo');
-      sinon.assert.calledWith(spyLoggerError, 'Cannot query schedules from DB. error: foo');
+      stubGetAllSchedules.returns(Promise.reject(new Error('foo')));
+      return logic.start().then(() => {
+        sinon.assert.calledWith(spyLoggerError, 'Cannot setup schedules from DB. Error: foo');
+      });
     });
   });
 });

@@ -30,10 +30,10 @@ describe('BusinessLogics - Schedule - getAllSchedules', function() {
   let stubCallback;
   context('when everything ok', function() {
     let mockOutputContext;
-    let outputJOB;
+    let outputJob;
     before(function() {
 
-      outputJOB = {
+      outputJob = {
         nature: {
           type: 'dbinterface',
           quality: 'find',
@@ -44,7 +44,7 @@ describe('BusinessLogics - Schedule - getAllSchedules', function() {
           query: {},
         },
       };
-      mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJOB);
+      mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJob);
       mockOutputContext.publish = sinon.stub();
 
       const Logic = require(logicPath);
@@ -53,7 +53,6 @@ describe('BusinessLogics - Schedule - getAllSchedules', function() {
         .returns(mockOutputContext);
 
       stubCallback = sinon.stub();
-      logic.getAllSchedules(stubCallback);
     });
     after(function() {
       requireSubvert.cleanUp();
@@ -61,25 +60,34 @@ describe('BusinessLogics - Schedule - getAllSchedules', function() {
     });
 
     it('should send a new Context find', function() {
-      sinon.assert.calledWith(logic.cementHelper.createContext, outputJOB);
-      sinon.assert.called(mockOutputContext.publish);
+      const promise = logic.getAllSchedules();
+      mockOutputContext.emit('done', 'dbinterface', {});
+      return promise.then(() => {
+        sinon.assert.calledWith(logic.cementHelper.createContext, outputJob);
+        sinon.assert.called(mockOutputContext.publish);
+      })
     });
 
     context('when outputContext emits done event', function() {
       it('should emit done event on inputContext', function() {
         const response = {};
+        const promise = logic.getAllSchedules();
         mockOutputContext.emit('done', 'dbinterface', response);
-        sinon.assert.calledWith(stubCallback,
-          'done', response);
+        return expect(promise).to.eventually.equal(response);
       });
     });
 
     context('when outputContext emits reject event', function() {
       it('should emit reject event on inputContext', function() {
         const error = new Error('mockError');
+        const promise = logic.getAllSchedules();
         mockOutputContext.emit('reject', 'dbinterface', error);
-        sinon.assert.calledWith(stubCallback,
-          'reject', error);
+
+        return expect(promise).to.eventually.be.rejected
+          .then((err) => {
+            expect(err).to.have.property('returnCode', 'reject');
+            expect(err).to.have.property('brickName', 'dbinterface');
+          })
       });
     });
 
@@ -87,9 +95,14 @@ describe('BusinessLogics - Schedule - getAllSchedules', function() {
       it('should emit error event on inputContext', function() {
         const error = new Error('mockError');
         const brickName = 'dbinterface';
+        const promise = logic.getAllSchedules();
         mockOutputContext.emit('error', brickName, error);
-        sinon.assert.calledWith(stubCallback,
-          'error', error);
+
+        return expect(promise).to.eventually.be.rejected
+          .then((err) => {
+            expect(err).to.have.property('returnCode', 'error');
+            expect(err).to.have.property('brickName', brickName);
+          })
       });
     });
   });

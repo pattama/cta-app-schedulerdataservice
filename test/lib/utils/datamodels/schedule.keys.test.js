@@ -24,7 +24,6 @@ describe('Data Model - Schedule - Keys', function() {
             body: { type: 'object', optional: true },
           }
         },
-        enabled: { type: 'boolean', optional: true },
         scheduledBy: { type: 'string', optional: true },
         scheduledTimestamp: { type: 'number', optional: true }
       };

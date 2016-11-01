@@ -23,7 +23,7 @@ const DEFAULTCEMENTHELPER = {
   createContext: function() {},
 };
 
-describe('DatabaseInterfaces - MongoDB - Find - _process', function() {
+describe.only('DatabaseInterfaces - MongoDB - Find - _process', function() {
   let helper;
   const inputJOB = {
     nature: {
@@ -40,7 +40,7 @@ describe('DatabaseInterfaces - MongoDB - Find - _process', function() {
         },
       },
       query: {
-        enabled: true,
+        schedule: '* * * * *',
       },
     },
   };
@@ -50,11 +50,11 @@ describe('DatabaseInterfaces - MongoDB - Find - _process', function() {
   });
   context('when everything ok', function() {
     let mockOutputContext;
-    let outputJOB;
+    let outputJob;
     before(function() {
       sinon.stub(mockInputContext, 'emit');
 
-      outputJOB = {
+      outputJob = {
         nature: {
           type: 'database',
           quality: 'query',
@@ -72,10 +72,10 @@ describe('DatabaseInterfaces - MongoDB - Find - _process', function() {
           ],
         },
       };
-      mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJOB);
+      mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJob);
       mockOutputContext.publish = sinon.stub();
       sinon.stub(helper.cementHelper, 'createContext')
-        .withArgs(outputJOB)
+        .withArgs(outputJob)
         .returns(mockOutputContext);
       helper._process(mockInputContext);
     });
@@ -83,7 +83,7 @@ describe('DatabaseInterfaces - MongoDB - Find - _process', function() {
       helper.cementHelper.createContext.restore();
     });
     it('should send a new Context', function() {
-      sinon.assert.calledWith(helper.cementHelper.createContext, outputJOB);
+      sinon.assert.calledWith(helper.cementHelper.createContext, outputJob);
       sinon.assert.called(mockOutputContext.publish);
     });
 

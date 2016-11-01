@@ -53,7 +53,7 @@ describe('BusinessLogics - Schedule - Requester - sendRequest', function() {
       const promise = requester.sendRequest(restObj);
       stubRequest.callArgWith(1, 'Error: ...');
       return expect(promise).to.eventually.be.rejected
-        .and.to.deep.equal({err: 'Error: ...', fail: 500});
+        .and.to.deep.equal({nestedErr: 'Error: ...', fail: 500});
     });
   });
 
@@ -64,7 +64,7 @@ describe('BusinessLogics - Schedule - Requester - sendRequest', function() {
         statusCode: 400
       });
       return expect(promise).to.eventually.be.rejected
-        .and.to.deep.equal({err: undefined, fail: 400});
+        .and.to.deep.equal({nestedErr: undefined, fail: 400});
     });
   });
 });
