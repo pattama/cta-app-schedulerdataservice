@@ -23,7 +23,7 @@ const DEFAULTCEMENTHELPER = {
   createContext: function() {},
 };
 
-describe.only('DatabaseInterfaces - MongoDB - Find - _process', function() {
+describe('DatabaseInterfaces - MongoDB - Find - _process', function() {
   let helper;
   const inputJOB = {
     nature: {
