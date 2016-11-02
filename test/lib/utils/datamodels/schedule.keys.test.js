@@ -14,7 +14,7 @@ describe('Data Model - Schedule - Keys', function() {
     it('should return properties', function() {
       const keys = {
         id: { type: 'identifier' },
-        objId: { type: 'identifier', optional: true },
+        objId: { type: 'string', optional: true },
         type: { type: 'string', optional: true },
         schedule: { type: 'string' },
         rest: {
