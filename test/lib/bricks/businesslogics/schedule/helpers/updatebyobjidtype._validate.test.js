@@ -6,13 +6,12 @@ const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const expect = chai.expect;
 const nodepath = require('path');
-const ObjectID = require('bson').ObjectID;
 const _ = require('lodash');
 
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
 const Helper = require(nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/helpers', 'delete.js'));
+  '/lib/bricks/businesslogics/schedule/helpers', 'updatebyobjidtype.js'));
 
 const DEFAULTCONFIG = require('../index.config.testdata.js');
 const DEFAULTLOGGER = new Logger(null, null, DEFAULTCONFIG.name);
@@ -27,16 +26,23 @@ const DEFAULTCEMENTHELPER = {
   createContext: function() {},
 };
 
-describe('BusinessLogics - Schedule - Delete - _validate', function() {
+describe('BusinessLogics - Schedule - UpdateByObjIdType - _validate', function() {
   let helper;
-  const mockId = new ObjectID();
   const DEFAULTINPUTJOB = {
     nature: {
       type: 'schedule',
-      quality: 'delete',
+      quality: 'updatebyobjidtype',
     },
     payload: {
-      id: mockId.toString(),
+      objId: '57e2f5b08e14f36c4a20191d',
+      type: 'foo',
+      schedule: "* * * * *",
+      rest: {
+        url: '',
+        method: '',
+        headers: {},
+        body: {}
+      }
     },
   };
   before(function() {
@@ -55,25 +61,23 @@ describe('BusinessLogics - Schedule - Delete - _validate', function() {
     });
   });
 
-  context('when payload.id is not a String', function() {
+  context('when payload is not an object', function() {
     const job = _.cloneDeep(DEFAULTINPUTJOB);
-    job.payload.id = {};
+    job.payload = 'not-an-object';
     const mockInputContext = new Context(DEFAULTCEMENTHELPER, job);
     it('should reject', function() {
       const validatePromise = helper._validate(mockInputContext);
-      return expect(validatePromise).to.eventually
-        .be.rejectedWith(Error, 'missing/incorrect \'id\' String value of ObjectID in job payload');
+      return expect(validatePromise).to.eventually.be.rejected;
     });
   });
 
-  context('when payload.id is not a String value of ObjectID', function() {
+  context('when payload has an invalid argument', function() {
     const job = _.cloneDeep(DEFAULTINPUTJOB);
-    job.payload.id = 'sdfsdf';
+    job.payload.rest = 'should not be string';
     const mockInputContext = new Context(DEFAULTCEMENTHELPER, job);
     it('should reject', function() {
       const validatePromise = helper._validate(mockInputContext);
-      return expect(validatePromise).to.eventually
-        .be.rejectedWith(Error, 'missing/incorrect \'id\' String value of ObjectID in job payload');
+      return expect(validatePromise).to.eventually.be.rejected;
     });
   });
 });

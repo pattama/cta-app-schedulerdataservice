@@ -40,7 +40,12 @@ describe('DatabaseInterfaces - MongoDB - Find - _validate', function() {
         offset: 0,
       },
       query: {
-        foo: 'bar',
+        rest: {
+          url: '',
+          method: '',
+          headers: {},
+          body: {}
+        },
       },
     },
   };

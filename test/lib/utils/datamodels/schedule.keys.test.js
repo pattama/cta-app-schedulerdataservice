@@ -33,16 +33,3 @@ describe('Data Model - Schedule - Keys', function() {
     });
   });
 });
-
-
-describe('Data Model - Execution - QueryKeys', function() {
-  context('when everything ok', function() {
-    it('should return properties', function() {
-      const keys = {
-        id: { type: 'identifier', optional: true },
-        enabled: { type: 'boolean', optional: true },
-      };
-      expect(_.isEqual(Model.queryKeys(), keys)).to.be.equal(true);
-    });
-  });
-});
