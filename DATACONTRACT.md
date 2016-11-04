@@ -1,17 +1,20 @@
 # Schedule DataService for Compass Test Automation
 [Readme](README.md) | [Rest API](RESTAPI.md) | [DataModel](DATAMODEL.md) | [DataContract](DATACONTRACT.md) | [Document](DOCUMENTATION.md)  
 
-Rest API
+# Application Scheduler for Compass Test Automation
 
-Setup a schedule
-Find a schedule by Id
-Update a schedule
-Delete a schedule
+[![build status](https://git.sami.int.thomsonreuters.com/compass/cta-jobmanager/badges/master/build.svg)](https://git.sami.int.thomsonreuters.com/compass/cta-jobmanager/commits/master)
+[![coverage report](https://git.sami.int.thomsonreuters.com/compass/cta-jobmanager/badges/master/coverage.svg)](https://git.sami.int.thomsonreuters.com/compass/cta-jobmanager/commits/master)
 
+#### Rest API
+* [Setup a schedule](#setup-a-scehdule)
+* [Find a schedule by Id](#find-a-schedule-by-id)
+* [Update a schedule](#update-a-schedule)
+* [Delete a schedule](#delete-a-schedule)
 
-##Setup a schedule:
-
-```Request
+#### Setup a schedule
+**Request**
+```ruby
 POST /schedules
 {
   "schedule": "* * * * *", // cron string or timestamp(number)
@@ -26,7 +29,10 @@ POST /schedules
     }
   }
 }
-Response
+```
+
+**Response**
+```ruby
 {
   "id": "58105c481812e42e3c844e85",
   "schedule": "* * * * *",
@@ -40,14 +46,16 @@ Response
       "nothing in real": "just to show people can add headers and body"
     }
   }
-}```
+}
+```
 
-
-##Find a schedule by Id
-
-Request
+#### Find a schedule by Id
+**Request**
+```ruby
 GET /schedules/:id
-Response
+```
+**Response**
+```ruby
 {
   "id": "58105c481812e42e3c844e85",
   "schedule": "* * * * *",
@@ -64,8 +72,10 @@ Response
   "scheduledBy": null,
   "scheduledTimestamp": 1477467300171
 }
-Update a schedule
+```
 
+#### Update a schedule
+```ruby
 PATCH /schedules/:id
 {
   "schedule": "*/10 * * * * *",
@@ -80,7 +90,9 @@ PATCH /schedules/:id
     }
   }
 }
-Response
+```
+**Response**
+```ruby
 {
   "id": "58105c481812e42e3c844e85",
   "schedule": "*/10 * * * * *",
@@ -97,10 +109,14 @@ Response
   "scheduledBy": null,
   "scheduledTimestamp": 1477467480171
 }
-Delete a schedule
+```
 
+#### Delete a schedule
+```ruby
 DELETE /schedules/:id
-Response
+```
+**Response**
+```ruby
 {
   "id": "58105c481812e42e3c844e85",
   "schedule": "*/10 * * * * *",
@@ -117,3 +133,4 @@ Response
   "scheduledBy": null,
   "scheduledTimestamp": 1477467540170
 }
+```
