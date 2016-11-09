@@ -11,6 +11,8 @@ stages:
 
 install_nodemodule:
   stage: build
+  artifacts:
+    untracked: true
   script:
     # (change apt-get to yum if you use a CentOS-based image)
     - 'which ssh-agent || ( yum update -y && yum install openssh-client -y )'
@@ -34,5 +36,7 @@ install_nodemodule:
 
 unit_test:
   stage: test
+  dependencies:
+  - install_nodemodule
   script:
     - npm run test
