@@ -68,7 +68,7 @@ describe('BusinessLogics - Schedule - setupAllSchedules', function() {
 
     it('should setup all schedules', function() {
       logic.setupAllSchedules([]);
-      sinon.assert.calledWith(spyLoggerInfo, 'All schedules was setup: 0');
+      sinon.assert.calledWith(spyLoggerInfo, 'Schedules was setup 0 out of 0');
     });
   });
 
