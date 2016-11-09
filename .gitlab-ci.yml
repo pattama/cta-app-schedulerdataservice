@@ -6,7 +6,7 @@ stages:
   - deploy
 
 install_node_modules:
-  stage: buld
+  stage: build
   script:
     # (change apt-get to yum if you use a CentOS-based image)
     - 'which ssh-agent || ( yum update -y && yum install openssh-client -y )'
