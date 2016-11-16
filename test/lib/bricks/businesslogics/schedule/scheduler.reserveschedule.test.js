@@ -52,7 +52,7 @@ describe('BusinessLogics - Schedule - Scheduler - reserveSchedule', function() {
       mockOutputContext = new Context(DEFAULTCEMENTHELPER/*, outputJOB*/);
       mockOutputContext.publish = sinon.stub();
 
-      scheduler = new Scheduler('name', DEFAULTCEMENTHELPER, DEFAULTLOGGER);
+      scheduler = new Scheduler(DEFAULTCEMENTHELPER, DEFAULTLOGGER, 'name');
       sinon.stub(scheduler.cementHelper, 'createContext')
         //.withArgs(outputJOB)
         .returns(mockOutputContext);

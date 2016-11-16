@@ -41,7 +41,7 @@ describe('BusinessLogics - Schedule - Scheduler - doTrigger', function() {
     };
 
     const Scheduler = require(pathToScheduler);
-    scheduler = new Scheduler('name', undefined, new Logger());
+    scheduler = new Scheduler(undefined, new Logger(), 'name');
 
   });
   beforeEach(function() {
