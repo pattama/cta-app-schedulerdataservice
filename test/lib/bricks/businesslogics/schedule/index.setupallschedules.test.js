@@ -68,14 +68,16 @@ describe('BusinessLogics - Schedule - setupAllSchedules', function() {
 
     it('should setup all schedules', function() {
       logic.setupAllSchedules([]);
-      sinon.assert.calledWith(spyLoggerInfo, 'All schedules was setup: 0');
+      sinon.assert.calledWith(spyLoggerInfo, 'Schedules was setup 0 out of 0');
     });
   });
 
   context('when schedules is not array', function() {
 
     it('should print error log', function() {
-      logic.setupAllSchedules('foo');
+      expect(function() {
+        logic.setupAllSchedules('foo');
+      }).to.throw('Schedules object is not an array');
       sinon.assert.calledWith(spyLoggerError, 'Schedules object is not an array:', 'foo');
     });
   });

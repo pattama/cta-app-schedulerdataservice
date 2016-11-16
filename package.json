@@ -5,7 +5,7 @@
   "author": "CTA Team <cta@thomsonreuters.com>",
   "main": "lib/index.js",
   "scripts": {
-    "test": "_mocha test/index.js",
+    "test": "_mocha --recursive test",
     "codecoverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec && opener ./coverage/lcov-report/index.html",
     "docs": "jsdoc2md \"lib/**/*.js\" > DOCUMENTATION.md && jsdoc --readme README.md lib -r -d docs && opener ./docs/index.html"
   },
