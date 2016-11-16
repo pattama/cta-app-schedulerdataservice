@@ -75,7 +75,9 @@ describe('BusinessLogics - Schedule - setupAllSchedules', function() {
   context('when schedules is not array', function() {
 
     it('should print error log', function() {
-      logic.setupAllSchedules('foo');
+      expect(function() {
+        logic.setupAllSchedules('foo');
+      }).to.throw('Schedules object is not an array');
       sinon.assert.calledWith(spyLoggerError, 'Schedules object is not an array:', 'foo');
     });
   });
