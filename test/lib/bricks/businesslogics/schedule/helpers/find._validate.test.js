@@ -42,7 +42,12 @@ describe('BusinessLogics - Schedule - Find - _validate', function() {
         },
       },
       query: {
-        foo: 'bar',
+        rest: {
+          url: '',
+          method: '',
+          headers: {},
+          body: {}
+        },
       },
     },
   };

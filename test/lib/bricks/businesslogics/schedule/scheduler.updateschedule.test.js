@@ -27,6 +27,7 @@ describe('BusinessLogics - Schedule - Scheduler - updateSchedule', function() {
   before(function() {
 
     scheduleObj = {
+      id: scheduleId,
       scenarioId: (new ObjectID()).toString(),
       schedule: '* * * * *',
       rest: {
@@ -38,8 +39,7 @@ describe('BusinessLogics - Schedule - Scheduler - updateSchedule', function() {
         body: {
           "nothing in real": 'just to show people can add headers and body'
         }
-      },
-      enabled: true,
+      }
     };
 
     stubCancelJob = sinon.stub();
@@ -56,7 +56,7 @@ describe('BusinessLogics - Schedule - Scheduler - updateSchedule', function() {
     it('should cancel current schedule then setup new schedule', function() {
       stubCancelJob.returns(true);
       stubSetupSchedule.returns(true);
-      const result = scheduler.updateSchedule(scheduleId, scheduleObj);
+      const result = scheduler.updateSchedule( scheduleObj);
 
       expect(result).to.be.true;
       sinon.assert.calledWith(stubCancelJob, scheduleId);

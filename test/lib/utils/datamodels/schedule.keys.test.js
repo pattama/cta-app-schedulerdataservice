@@ -14,7 +14,7 @@ describe('Data Model - Schedule - Keys', function() {
     it('should return properties', function() {
       const keys = {
         id: { type: 'identifier' },
-        objId: { type: 'identifier', optional: true },
+        objId: { type: 'string', optional: true },
         type: { type: 'string', optional: true },
         schedule: { type: 'string' },
         rest: {
@@ -30,19 +30,6 @@ describe('Data Model - Schedule - Keys', function() {
         scheduledTimestamp: { type: 'number', optional: true }
       };
       expect(_.isEqual(Model.keys(), keys)).to.be.equal(true);
-    });
-  });
-});
-
-
-describe('Data Model - Execution - QueryKeys', function() {
-  context('when everything ok', function() {
-    it('should return properties', function() {
-      const keys = {
-        id: { type: 'identifier', optional: true },
-        enabled: { type: 'boolean', optional: true },
-      };
-      expect(_.isEqual(Model.queryKeys(), keys)).to.be.equal(true);
     });
   });
 });

@@ -38,7 +38,12 @@ describe('BusinessLogics - Schedule - Update - _validate', function() {
     payload: {
       id: mockId.toString(),
       schedule: "* * * * *",
-      enabled: true
+      rest: {
+        url: '',
+        method: '',
+        headers: {},
+        body: {}
+      }
     },
   };
   before(function() {
@@ -69,7 +74,7 @@ describe('BusinessLogics - Schedule - Update - _validate', function() {
 
   context('when payload has an invalid argument', function() {
     const job = _.cloneDeep(DEFAULTINPUTJOB);
-    job.payload.enabled = {};
+    job.payload.rest = 'should not be string';
     const mockInputContext = new Context(DEFAULTCEMENTHELPER, job);
     it('should reject', function() {
       const validatePromise = helper._validate(mockInputContext);
