@@ -36,8 +36,7 @@ describe('BusinessLogics - Schedule - Update - _process', function() {
         quality: 'update',
       },
       payload: {
-        id: mockId.toString(),
-        content: {},
+        id: mockId.toString()
       },
     };
     const mockInputContext = new Context(DEFAULTCEMENTHELPER, DEFAULTINPUTJOB);
@@ -53,7 +52,7 @@ describe('BusinessLogics - Schedule - Update - _process', function() {
         payload: {
           type: 'schedule',
           id: DEFAULTINPUTJOB.payload.id,
-          content: DEFAULTINPUTJOB.payload.content,
+          content: {},
         },
       };
       mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJOB);

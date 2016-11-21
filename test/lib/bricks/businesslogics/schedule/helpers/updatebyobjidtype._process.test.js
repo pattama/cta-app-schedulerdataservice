@@ -30,13 +30,12 @@ describe('BusinessLogics - Schedule - UpdateByObjIdType - _process', function() 
   context('when everything ok', function() {
     const DEFAULTINPUTJOB = {
       nature: {
-        type: 'schedule',
-        quality: 'updatebyobjidtype',
+        type: 'dbinterface',
+        quality: 'updateonebyobjidtype',
       },
       payload: {
         objId: '57e2f5b08e14f36c4a20191d',
         type: 'foo',
-        content: {},
       },
     };
     const mockInputContext = new Context(DEFAULTCEMENTHELPER, DEFAULTINPUTJOB);
@@ -53,7 +52,7 @@ describe('BusinessLogics - Schedule - UpdateByObjIdType - _process', function() 
           collection: 'schedule',
           objId: DEFAULTINPUTJOB.payload.objId,
           type: DEFAULTINPUTJOB.payload.type,
-          content: DEFAULTINPUTJOB.payload.content,
+          content: {},
         },
       };
       mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJOB);

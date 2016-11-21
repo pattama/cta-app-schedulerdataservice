@@ -50,11 +50,7 @@ describe('Utils - RESTAPI - Handlers - Schedule - updateByObjIdType', function()
           type: 'schedule',
           quality: 'updatebyobjidtype',
         },
-        payload: {
-          objId: req.params.objId,
-          type: req.params.type,
-          content: req.body,
-        },
+        payload: req.body,
       };
       mockContext = new EventEmitter();
       mockContext.publish = sinon.stub();
