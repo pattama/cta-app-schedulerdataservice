@@ -1,11 +1,11 @@
 {
-  "name": "cta-app-boilerplate",
+  "name": "cta-app-schedulerdataservice",
   "version": "1.0.0",
-  "description": "cta app boilerplate",
+  "description": "cta app schedulerdataservice",
   "author": "CTA Team <cta@thomsonreuters.com>",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint --ignore-path .gitignore lib test --quiet",
+    "lint": "eslint --ignore-path .gitignore lib test",
     "test": "mocha -R spec --recursive test",
     "codecoverage": "istanbul cover node_modules/mocha/bin/_mocha -- --recursive test ",
     "all": "npm run lint && npm run codecoverage",

@@ -71,8 +71,8 @@ describe('BusinessLogics - Schedule - DeleteByObjIdType - _validate', function()
   //   const mockInputContext = new Context(DEFAULTCEMENTHELPER, job);
   //   it('should reject', function() {
   //     const validatePromise = helper._validate(mockInputContext);
-  //     return expect(validatePromise).to.eventually
-  //       .be.rejectedWith(Error, 'missing/incorrect \'id\' String value of ObjectID in job payload');
+  //     return expect(validatePromise).to.eventually.be.rejectedWith(Error,
+  //       'missing/incorrect \'id\' String value of ObjectID in job payload');
   //   });
   // });
 });
