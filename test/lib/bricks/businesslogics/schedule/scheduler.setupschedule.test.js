@@ -1,7 +1,6 @@
 'use strict';
 
 const chai = require('chai');
-const expect = chai.expect;
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const sinon = require('sinon');
@@ -11,11 +10,8 @@ const nodepath = require('path');
 const appRootPath = require('app-root-path').path;
 const pathToScheduler = nodepath.join(appRootPath,
   '/lib/bricks/businesslogics/schedule/', 'scheduler.js');
-const pathToRequester = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/', 'requester.js');
 
 const ObjectID = require('bson').ObjectID;
-
 
 
 describe('BusinessLogics - Schedule - Scheduler - setupSchedule', function() {
@@ -24,7 +20,6 @@ describe('BusinessLogics - Schedule - Scheduler - setupSchedule', function() {
   let stubNodeSchedule;
   let scheduler;
   before(function() {
-
     scheduleObj = {
       scenarioId: (new ObjectID()).toString(),
       schedule: '* * * * *',
@@ -32,21 +27,20 @@ describe('BusinessLogics - Schedule - Scheduler - setupSchedule', function() {
         method: 'POST',
         url: 'http://www.google.com',
         headers: {
-          "Content-Type": 'application/json'
+          'Content-Type': 'application/json',
         },
         body: {
-          "nothing in real": 'just to show people can add headers and body'
-        }
-      }
+          'nothing in real': 'just to show people can add headers and body',
+        },
+      },
     };
 
     stubNodeSchedule = sinon.stub();
-    requireSubvert.subvert('node-schedule', { 'scheduleJob': stubNodeSchedule });
+    requireSubvert.subvert('node-schedule', { scheduleJob: stubNodeSchedule });
 
     const Scheduler = requireSubvert.require(pathToScheduler);
     scheduler = new Scheduler();
     stubDoTrigger = sinon.stub(scheduler, 'doTrigger');
-
   });
 
   context('when everything ok', function() {

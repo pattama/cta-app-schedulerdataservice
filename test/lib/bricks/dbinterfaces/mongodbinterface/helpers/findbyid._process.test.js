@@ -94,9 +94,9 @@ describe('DatabaseInterfaces - MongoDB - FindById - constructor', function() {
           const response = [doc];
 
           // cta object
-          //const object = _.cloneDeep(doc);
-          //object.id = mockId.toString();
-          //delete object._id;
+          // const object = _.cloneDeep(doc);
+          // object.id = mockId.toString();
+          // delete object._id;
 
           mockOutputContext.emit('done', 'dblayer', response);
           sinon.assert.calledWith(mockInputContext.emit,

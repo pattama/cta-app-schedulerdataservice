@@ -1,7 +1,7 @@
 {
-  "name": "cta-app-boilerplate",
+  "name": "cta-app-schedulerdataservice",
   "version": "1.0.0",
-  "description": "cta app boilerplate",
+  "description": "cta app schedulerdataservice",
   "author": "CTA Team <cta@thomsonreuters.com>",
   "main": "lib/index.js",
   "scripts": {
@@ -24,8 +24,8 @@
     "chai": "~3.5.0",
     "chai-as-promised": "^6.0.0",
     "eslint": "^3.9.1",
-    "eslint-config-airbnb": "^13.0.0",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint-config-airbnb": "^10.0.0",
+    "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.6.0",
     "istanbul": "~0.4.1",

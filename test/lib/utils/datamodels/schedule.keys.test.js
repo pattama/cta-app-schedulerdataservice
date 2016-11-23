@@ -24,10 +24,10 @@ describe('Data Model - Schedule - Keys', function() {
             method: { type: 'string', optional: true, defaultTo: 'GET' },
             headers: { type: 'object', optional: true, defaultTo: {} },
             body: { type: 'object', optional: true },
-          }
+          },
         },
         scheduledBy: { type: 'string', optional: true },
-        scheduledTimestamp: { type: 'number', optional: true }
+        scheduledTimestamp: { type: 'number', optional: true },
       };
       expect(_.isEqual(Model.keys(), keys)).to.be.equal(true);
     });

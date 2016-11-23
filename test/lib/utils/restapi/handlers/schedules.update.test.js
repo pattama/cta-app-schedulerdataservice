@@ -50,10 +50,7 @@ describe('Utils - RESTAPI - Handlers - Schedule - update', function() {
           type: 'schedule',
           quality: 'update',
         },
-        payload: {
-          id: req.params.id,
-          content: req.body,
-        },
+        payload: req.body,
       };
       mockContext = new EventEmitter();
       mockContext.publish = sinon.stub();

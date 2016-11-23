@@ -1,10 +1,7 @@
 'use strict';
 
 const appRootPath = require('app-root-path').path;
-const chai = require('chai');
-const expect = chai.expect;
 const sinon = require('sinon');
-const fs = require('fs');
 const nodepath = require('path');
 
 const Logger = require('cta-logger');
@@ -28,6 +25,7 @@ describe('BusinessLogics - Schedule - start', function() {
   let stubGetAllSchedules;
   let spyLoggerError;
   before(function() {
+    // eslint-disable-next-line global-require
     const Logic = require(logicPath);
     logic = new Logic(DEFAULTCEMENTHELPER, DEFAULTCONFIG);
 
@@ -36,22 +34,20 @@ describe('BusinessLogics - Schedule - start', function() {
   });
   afterEach(function() {
     stubGetAllSchedules.reset();
-  })
+  });
 
   context('when everything ok', function() {
-
     it('should setup all schedules', function() {
       const spySetupAllSchedules = sinon.stub(logic, 'setupAllSchedules');
       const schedulesResult = ['aa'];
       stubGetAllSchedules.returns(Promise.resolve(schedulesResult));
       return logic.start().then(() => {
         sinon.assert.calledWith(spySetupAllSchedules, schedulesResult);
-      })
+      });
     });
   });
 
   context('when getAllSchedules method return error', function() {
-
     it('should print log', function() {
       stubGetAllSchedules.returns(Promise.reject(new Error('foo')));
       return logic.start().then(() => {

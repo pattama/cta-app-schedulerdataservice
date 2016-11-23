@@ -35,7 +35,7 @@ describe('BusinessLogics - Schedule - DeleteByObjIdType - _validate', function()
     },
     payload: {
       objId: '57e2f5b08e14f36c4a20191d',
-      type: 'bar'
+      type: 'bar',
     },
   };
   before(function() {
@@ -71,8 +71,8 @@ describe('BusinessLogics - Schedule - DeleteByObjIdType - _validate', function()
   //   const mockInputContext = new Context(DEFAULTCEMENTHELPER, job);
   //   it('should reject', function() {
   //     const validatePromise = helper._validate(mockInputContext);
-  //     return expect(validatePromise).to.eventually
-  //       .be.rejectedWith(Error, 'missing/incorrect \'id\' String value of ObjectID in job payload');
+  //     return expect(validatePromise).to.eventually.be.rejectedWith(Error,
+  //       'missing/incorrect \'id\' String value of ObjectID in job payload');
   //   });
   // });
 });

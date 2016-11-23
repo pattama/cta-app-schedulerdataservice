@@ -44,7 +44,7 @@ describe('DatabaseInterfaces - MongoDB - Find - _validate', function() {
           url: '',
           method: '',
           headers: {},
-          body: {}
+          body: {},
         },
       },
     },

@@ -4,7 +4,6 @@ const appRootPath = require('app-root-path').path;
 const sinon = require('sinon');
 const requireSubvert = require('require-subvert')(__dirname);
 const nodepath = require('path');
-const _ = require('lodash');
 
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
@@ -30,13 +29,12 @@ describe('BusinessLogics - Schedule - UpdateByObjIdType - _process', function() 
   context('when everything ok', function() {
     const DEFAULTINPUTJOB = {
       nature: {
-        type: 'schedule',
-        quality: 'updatebyobjidtype',
+        type: 'dbinterface',
+        quality: 'updateonebyobjidtype',
       },
       payload: {
         objId: '57e2f5b08e14f36c4a20191d',
         type: 'foo',
-        content: {},
       },
     };
     const mockInputContext = new Context(DEFAULTCEMENTHELPER, DEFAULTINPUTJOB);
@@ -53,7 +51,7 @@ describe('BusinessLogics - Schedule - UpdateByObjIdType - _process', function() 
           collection: 'schedule',
           objId: DEFAULTINPUTJOB.payload.objId,
           type: DEFAULTINPUTJOB.payload.type,
-          content: DEFAULTINPUTJOB.payload.content,
+          content: {},
         },
       };
       mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJOB);

@@ -38,7 +38,7 @@ describe('BusinessLogics - Schedule - Find - _validate', function() {
         limit: 10,
         offset: 0,
         sort: {
-          _id: -1
+          _id: -1,
         },
       },
       query: {
@@ -46,7 +46,7 @@ describe('BusinessLogics - Schedule - Find - _validate', function() {
           url: '',
           method: '',
           headers: {},
-          body: {}
+          body: {},
         },
       },
     },

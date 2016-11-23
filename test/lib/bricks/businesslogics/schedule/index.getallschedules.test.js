@@ -27,12 +27,10 @@ const DEFAULTCEMENTHELPER = {
 
 describe('BusinessLogics - Schedule - getAllSchedules', function() {
   let logic;
-  let stubCallback;
   context('when everything ok', function() {
     let mockOutputContext;
     let outputJob;
     before(function() {
-
       outputJob = {
         nature: {
           type: 'dbinterface',
@@ -47,12 +45,11 @@ describe('BusinessLogics - Schedule - getAllSchedules', function() {
       mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJob);
       mockOutputContext.publish = sinon.stub();
 
+      // eslint-disable-next-line global-require
       const Logic = require(logicPath);
       logic = new Logic(DEFAULTCEMENTHELPER, DEFAULTCONFIG);
       sinon.stub(logic.cementHelper, 'createContext')
         .returns(mockOutputContext);
-
-      stubCallback = sinon.stub();
     });
     after(function() {
       requireSubvert.cleanUp();
@@ -65,7 +62,7 @@ describe('BusinessLogics - Schedule - getAllSchedules', function() {
       return promise.then(() => {
         sinon.assert.calledWith(logic.cementHelper.createContext, outputJob);
         sinon.assert.called(mockOutputContext.publish);
-      })
+      });
     });
 
     context('when outputContext emits done event', function() {
@@ -87,7 +84,7 @@ describe('BusinessLogics - Schedule - getAllSchedules', function() {
           .then((err) => {
             expect(err).to.have.property('returnCode', 'reject');
             expect(err).to.have.property('brickName', 'dbinterface');
-          })
+          });
       });
     });
 
@@ -102,7 +99,7 @@ describe('BusinessLogics - Schedule - getAllSchedules', function() {
           .then((err) => {
             expect(err).to.have.property('returnCode', 'error');
             expect(err).to.have.property('brickName', brickName);
-          })
+          });
       });
     });
   });

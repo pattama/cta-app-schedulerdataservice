@@ -6,7 +6,6 @@ const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const expect = chai.expect;
 const nodepath = require('path');
-const ObjectID = require('bson').ObjectID;
 const _ = require('lodash');
 
 const Logger = require('cta-logger');
@@ -29,7 +28,6 @@ const DEFAULTCEMENTHELPER = {
 
 describe('DatabaseInterfaces - MongoDB - UpdateOneByObjIdType - _validate', function() {
   let helper;
-  const mockId = new ObjectID();
   const DEFAULTINPUTJOB = {
     nature: {
       type: 'dbinterface',

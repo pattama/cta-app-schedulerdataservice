@@ -47,7 +47,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - deleteByObjIdType', function(
         },
         payload: {
           objId: req.params.objId,
-          type: req.params.type
+          type: req.params.type,
         },
       };
       mockContext = new EventEmitter();

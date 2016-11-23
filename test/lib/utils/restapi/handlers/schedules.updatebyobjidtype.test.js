@@ -43,18 +43,14 @@ describe('Utils - RESTAPI - Handlers - Schedule - updateByObjIdType', function()
       req.body = _.cloneDeep(SCHEDULE);
       req.params = {
         objId: 'foo',
-        type: 'bar'
+        type: 'bar',
       };
       data = {
         nature: {
           type: 'schedule',
           quality: 'updatebyobjidtype',
         },
-        payload: {
-          objId: req.params.objId,
-          type: req.params.type,
-          content: req.body,
-        },
+        payload: req.body,
       };
       mockContext = new EventEmitter();
       mockContext.publish = sinon.stub();

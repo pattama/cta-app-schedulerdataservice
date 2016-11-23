@@ -36,13 +36,13 @@ describe('BusinessLogics - Schedule - UpdateByObjIdType - _validate', function()
     payload: {
       objId: '57e2f5b08e14f36c4a20191d',
       type: 'foo',
-      schedule: "* * * * *",
+      schedule: '* * * * *',
       rest: {
         url: '',
         method: '',
         headers: {},
-        body: {}
-      }
+        body: {},
+      },
     },
   };
   before(function() {

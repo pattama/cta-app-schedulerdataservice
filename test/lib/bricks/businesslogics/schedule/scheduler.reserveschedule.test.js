@@ -30,31 +30,13 @@ describe('BusinessLogics - Schedule - Scheduler - reserveSchedule', function() {
   let stubCallback;
   context('when everything ok', function() {
     let mockOutputContext;
-    let outputJOB;
     before(function() {
       stubCallback = sinon.stub();
-
-      /*outputJOB = {
-        nature: {
-          type: 'dbinterface',
-          quality: 'reserveschedule',
-        },
-        payload: {
-          type: 'schedule',
-          id: scheduleId,
-          toleranceTime: 5,
-          content: {
-            scheduledBy: undefined,
-            scheduledTimestamp: Date.now(),
-          }
-        },
-      };*/
-      mockOutputContext = new Context(DEFAULTCEMENTHELPER/*, outputJOB*/);
+      mockOutputContext = new Context(DEFAULTCEMENTHELPER);
       mockOutputContext.publish = sinon.stub();
 
       scheduler = new Scheduler(DEFAULTCEMENTHELPER, DEFAULTLOGGER, 'name');
       sinon.stub(scheduler.cementHelper, 'createContext')
-        //.withArgs(outputJOB)
         .returns(mockOutputContext);
       scheduler.reserveSchedule(scheduleId, stubCallback);
     });
@@ -64,7 +46,7 @@ describe('BusinessLogics - Schedule - Scheduler - reserveSchedule', function() {
     });
 
     it('should send a new Context insertone', function() {
-      sinon.assert.calledWith(scheduler.cementHelper.createContext/*, outputJOB*/);   // cannot verify scheduledTimestamp
+      sinon.assert.calledWith(scheduler.cementHelper.createContext);   // cannot verify scheduledTimestamp
       sinon.assert.called(mockOutputContext.publish);
     });
 
