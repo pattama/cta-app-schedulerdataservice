@@ -43,7 +43,7 @@ describe('Utils - RESTAPI - Handlers - Schedule - updateByObjIdType', function()
       req.body = _.cloneDeep(SCHEDULE);
       req.params = {
         objId: 'foo',
-        type: 'bar'
+        type: 'bar',
       };
       data = {
         nature: {

@@ -6,7 +6,6 @@ const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const expect = chai.expect;
 const nodepath = require('path');
-const ObjectID = require('bson').ObjectID;
 const _ = require('lodash');
 
 const Logger = require('cta-logger');
@@ -36,7 +35,7 @@ describe('BusinessLogics - Schedule - FindByObjIdType - _validate', function() {
     },
     payload: {
       objId: '57e2f5b08e14f36c4a20191d',
-      type: 'foo'
+      type: 'foo',
     },
   };
   before(function() {
@@ -65,5 +64,4 @@ describe('BusinessLogics - Schedule - FindByObjIdType - _validate', function() {
         .be.rejectedWith(Error, 'missing/incorrect \'objId\' String value in job payload');
     });
   });
-
 });

@@ -43,13 +43,13 @@ describe('BusinessLogics - Schedule - Synchronizer - broadcast', function() {
           method: 'POST',
           url: 'http://www.google.com',
           headers: {
-            "Content-Type": 'application/json'
+            'Content-Type': 'application/json',
           },
           body: {
-            "nothing in real": 'just to show people can add headers and body'
-          }
-        }
-      }
+            'nothing in real': 'just to show people can add headers and body',
+          },
+        },
+      };
       outputJOB = {
         nature: {
           type: 'message',
@@ -58,12 +58,12 @@ describe('BusinessLogics - Schedule - Synchronizer - broadcast', function() {
         payload: {
           nature: {
             type: 'schedule',
-            quality: 'synchronize'
+            quality: 'synchronize',
           },
           payload: {
             action: action,
-            content: content
-          }
+            content: content,
+          },
         },
       };
       mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJOB);
@@ -105,7 +105,7 @@ describe('BusinessLogics - Schedule - Synchronizer - broadcast', function() {
         return expect(promise).to.eventually.be.rejectedWith({
           returnCode: 'reject',
           brickName: brickName,
-          response: error
+          response: error,
         });
       });
     });
@@ -119,8 +119,8 @@ describe('BusinessLogics - Schedule - Synchronizer - broadcast', function() {
         return expect(promise).to.eventually.be.rejectedWith({
           returnCode: 'error',
           brickName: brickName,
-          response: error
-        })
+          response: error,
+        });
       });
     });
   });

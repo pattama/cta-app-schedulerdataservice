@@ -10,7 +10,7 @@ const Context = require('cta-flowcontrol').Context;
 const pathToHelper = nodepath.join(appRootPath,
   '/lib/bricks/dbinterfaces/mongodbinterface/helpers/', 'updateonebyobjidtype.js');
 let Helper = require(pathToHelper);
-const scheduleSchema = require(nodepath.join(appRootPath,
+const ScheduleSchema = require(nodepath.join(appRootPath,
   '/lib/bricks/dbinterfaces/mongodbinterface/schemas/', 'schedule.js'));
 
 const DEFAULTCONFIG = require('../index.config.testdata.js');
@@ -60,10 +60,10 @@ describe('DatabaseInterfaces - MongoDB - UpdateOne - _process', function() {
 
       const mongoDbFilter = {
         objId: '57e2f5b08e14f36c4a20191d',
-        type: 'foo'
+        type: 'foo',
       };
       mongoDbDocument = {
-        $set: new scheduleSchema(inputJOB.payload.content),
+        $set: new ScheduleSchema(inputJOB.payload.content),
       };
       const mongoDbOptions = {
         returnOriginal: false,
@@ -86,7 +86,7 @@ describe('DatabaseInterfaces - MongoDB - UpdateOne - _process', function() {
       mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJOB);
       mockOutputContext.publish = sinon.stub();
       sinon.stub(helper.cementHelper, 'createContext')
-        //.withArgs(outputJOB)
+        // .withArgs(outputJOB)
         .returns(mockOutputContext);
       helper._process(mockInputContext);
     });
@@ -104,8 +104,8 @@ describe('DatabaseInterfaces - MongoDB - UpdateOne - _process', function() {
           const responseDocument = {
             _id: '57e2f5b08e14f36c4a20191d',
           };
-          //const responseObject = _.omit(responseDocument, ['_id']);
-          //responseObject.id = responseDocument._id.toString();
+          // const responseObject = _.omit(responseDocument, ['_id']);
+          // responseObject.id = responseDocument._id.toString();
           const response = {
             ok: 1,
             value: responseDocument,

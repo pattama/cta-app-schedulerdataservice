@@ -35,7 +35,7 @@ describe('BusinessLogics - Schedule - DeleteByObjIdType - _validate', function()
     },
     payload: {
       objId: '57e2f5b08e14f36c4a20191d',
-      type: 'bar'
+      type: 'bar',
     },
   };
   before(function() {

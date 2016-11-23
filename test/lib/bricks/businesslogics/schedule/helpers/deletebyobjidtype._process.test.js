@@ -35,7 +35,7 @@ describe('BusinessLogics - Schedule - DeleteByObjIdType - _process', function() 
       },
       payload: {
         objId: '57e2f5b08e14f36c4a20191d',
-        type: 'foo'
+        type: 'foo',
       },
     };
     const mockInputContext = new Context(DEFAULTCEMENTHELPER, inputJOB);
@@ -52,7 +52,7 @@ describe('BusinessLogics - Schedule - DeleteByObjIdType - _process', function() 
         payload: {
           collection: 'schedule',
           objId: inputJOB.payload.objId,
-          type: inputJOB.payload.type
+          type: inputJOB.payload.type,
         },
       };
       mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJOB);

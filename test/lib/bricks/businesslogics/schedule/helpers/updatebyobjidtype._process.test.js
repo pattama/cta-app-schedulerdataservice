@@ -4,7 +4,6 @@ const appRootPath = require('app-root-path').path;
 const sinon = require('sinon');
 const requireSubvert = require('require-subvert')(__dirname);
 const nodepath = require('path');
-const _ = require('lodash');
 
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;

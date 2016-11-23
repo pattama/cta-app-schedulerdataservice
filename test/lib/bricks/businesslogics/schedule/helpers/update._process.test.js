@@ -5,7 +5,6 @@ const sinon = require('sinon');
 const requireSubvert = require('require-subvert')(__dirname);
 const nodepath = require('path');
 const ObjectID = require('bson').ObjectID;
-const _ = require('lodash');
 
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
@@ -36,7 +35,7 @@ describe('BusinessLogics - Schedule - Update - _process', function() {
         quality: 'update',
       },
       payload: {
-        id: mockId.toString()
+        id: mockId.toString(),
       },
     };
     const mockInputContext = new Context(DEFAULTCEMENTHELPER, DEFAULTINPUTJOB);
@@ -78,14 +77,14 @@ describe('BusinessLogics - Schedule - Update - _process', function() {
         return promise.then(() => {
           sinon.assert.calledWith(mockInputContext.emit,
             'done', helper.cementHelper.brickName, response);
-        })
+        });
       });
     });
 
     context('when outputContext emits reject event', function() {
       it('should emit reject event on inputContext', function() {
         const error = new Error('mockError');
-        const brickName = 'dbinterface';;
+        const brickName = 'dbinterface';
         const promise = helper._process(mockInputContext);
         mockOutputContext.emit('reject', brickName, error);
         return promise.then(() => {

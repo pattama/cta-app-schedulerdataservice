@@ -5,7 +5,6 @@ const sinon = require('sinon');
 const nodepath = require('path');
 const ObjectID = require('bson').ObjectID;
 const requireSubvert = require('require-subvert')(__dirname);
-const _ = require('lodash');
 
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
@@ -37,7 +36,7 @@ describe('DatabaseInterfaces - MongoDB - DeleteOneByObjIdType - _process', funct
     payload: {
       collection: 'schedule',
       objId: '57e2f5b08e14f36c4a20191d',
-      type: 'foo'
+      type: 'foo',
     },
   };
   const mockInputContext = new Context(DEFAULTCEMENTHELPER, inputJOB);
@@ -66,7 +65,7 @@ describe('DatabaseInterfaces - MongoDB - DeleteOneByObjIdType - _process', funct
           args: [
             {
               objId: '57e2f5b08e14f36c4a20191d',
-              type: 'foo'
+              type: 'foo',
             },
           ],
         },
@@ -92,8 +91,8 @@ describe('DatabaseInterfaces - MongoDB - DeleteOneByObjIdType - _process', funct
           const responseDocument = {
             _id: mockId,
           };
-          //const responseObject = _.omit(responseDocument, ['_id']);
-          //responseObject.id = responseDocument._id.toString();
+          // const responseObject = _.omit(responseDocument, ['_id']);
+          // responseObject.id = responseDocument._id.toString();
           const response = {
             ok: 1,
             value: responseDocument,

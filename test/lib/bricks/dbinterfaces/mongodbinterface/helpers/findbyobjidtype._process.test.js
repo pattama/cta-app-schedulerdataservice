@@ -36,7 +36,7 @@ describe('DatabaseInterfaces - MongoDB - FindByObjIdType - constructor', functio
     payload: {
       collection: 'schedule',
       objId: '57e2f5b08e14f36c4a20191d',
-      type: 'foo'
+      type: 'foo',
     },
   };
   const mockInputContext = new Context(DEFAULTCEMENTHELPER, inputJOB);
@@ -65,7 +65,7 @@ describe('DatabaseInterfaces - MongoDB - FindByObjIdType - constructor', functio
           args: [
             {
               objId: inputJOB.payload.objId,
-              type: inputJOB.payload.type
+              type: inputJOB.payload.type,
             },
           ],
         },
@@ -96,9 +96,9 @@ describe('DatabaseInterfaces - MongoDB - FindByObjIdType - constructor', functio
           const response = [doc];
 
           // cta object
-          //const object = _.cloneDeep(doc);
-          //object.id = mockId.toString();
-          //delete object._id;
+          // const object = _.cloneDeep(doc);
+          // object.id = mockId.toString();
+          // delete object._id;
 
           mockOutputContext.emit('done', 'dblayer', response);
           sinon.assert.calledWith(mockInputContext.emit,

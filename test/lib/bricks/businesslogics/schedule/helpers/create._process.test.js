@@ -50,12 +50,12 @@ describe('BusinessLogics - Schedule - Create - _process', function() {
           method: 'POST',
           url: 'http://www.google.com',
           headers: {
-            "Content-Type": 'application/json'
+            'Content-Type': 'application/json',
           },
           body: {
-            "nothing in real": 'just to show people can add headers and body'
-          }
-        }
+            'nothing in real': 'just to show people can add headers and body',
+          },
+        },
       });
       const StubScheduleConstructor = sinon.stub().returns(mockSchedule);
       requireSubvert.subvert(pathToSchedule, StubScheduleConstructor);
@@ -94,7 +94,7 @@ describe('BusinessLogics - Schedule - Create - _process', function() {
         return promise.then(() => {
           sinon.assert.calledWith(mockInputContext.emit,
             'done', helper.cementHelper.brickName, response);
-        })
+        });
       });
     });
 

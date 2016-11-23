@@ -37,13 +37,13 @@ describe('BusinessLogics - Schedule - Update - _validate', function() {
     },
     payload: {
       id: mockId.toString(),
-      schedule: "* * * * *",
+      schedule: '* * * * *',
       rest: {
         url: '',
         method: '',
         headers: {},
-        body: {}
-      }
+        body: {},
+      },
     },
   };
   before(function() {

@@ -6,7 +6,6 @@ const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const expect = chai.expect;
 const nodepath = require('path');
-const ObjectID = require('bson').ObjectID;
 const _ = require('lodash');
 
 const Logger = require('cta-logger');
@@ -29,7 +28,6 @@ const DEFAULTCEMENTHELPER = {
 
 describe('DatabaseInterfaces - MongoDB - FindByObjIdType - _validate', function() {
   let helper;
-  const mockId = new ObjectID();
   const DEFAULTINPUTJOB = {
     nature: {
       type: 'dbinterface',
@@ -38,7 +36,7 @@ describe('DatabaseInterfaces - MongoDB - FindByObjIdType - _validate', function(
     payload: {
       collection: 'schedule',
       objId: '57e2f5b08e14f36c4a20191d',
-      type: 'foo'
+      type: 'foo',
     },
   };
   before(function() {
@@ -78,5 +76,4 @@ describe('DatabaseInterfaces - MongoDB - FindByObjIdType - _validate', function(
         .be.rejectedWith(Error, 'missing/incorrect \'objId\' String in job payload');
     });
   });
-
 });

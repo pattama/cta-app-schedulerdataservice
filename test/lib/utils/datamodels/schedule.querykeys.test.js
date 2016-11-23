@@ -25,10 +25,10 @@ describe('Data Model - Schedule - QueryKeys', function() {
             headers: { type: 'object', optional: true, defaultTo: {} },
             body: { type: 'object', optional: true },
           },
-          optional: true
+          optional: true,
         },
         scheduledBy: { type: 'string', optional: true },
-        scheduledTimestamp: { type: 'number', optional: true }
+        scheduledTimestamp: { type: 'number', optional: true },
       };
       console.log(Model.queryKeys());
       expect(_.isEqual(Model.queryKeys(), keys)).to.be.equal(true);
