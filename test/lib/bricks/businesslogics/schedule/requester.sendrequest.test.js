@@ -9,7 +9,7 @@ const sinon = require('sinon');
 const Logger = require('cta-logger');
 const requireSubvert = require('require-subvert')(__dirname);
 const nodepath = require('path');
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const pathToRequester = nodepath.join(appRootPath,
   '/lib/bricks/businesslogics/schedule/', 'requester.js');
 
