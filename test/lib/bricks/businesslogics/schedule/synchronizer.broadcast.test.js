@@ -1,6 +1,6 @@
 'use strict';
 
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const sinon = require('sinon');
 const expect = require('chai').expect;
 const nodepath = require('path');
