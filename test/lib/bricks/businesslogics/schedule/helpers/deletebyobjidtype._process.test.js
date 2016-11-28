@@ -60,14 +60,9 @@ describe('BusinessLogics - Schedule - DeleteByObjIdType - _process', function() 
       sinon.stub(helper.cementHelper, 'createContext')
         .withArgs(outputJOB)
         .returns(mockOutputContext);
-      helper._process(mockInputContext);
     });
     after(function() {
       helper.cementHelper.createContext.restore();
-    });
-    it('should send a new Context', function() {
-      sinon.assert.calledWith(helper.cementHelper.createContext, outputJOB);
-      sinon.assert.called(mockOutputContext.publish);
     });
 
     context('when outputContext emits done event', function() {
@@ -75,10 +70,13 @@ describe('BusinessLogics - Schedule - DeleteByObjIdType - _process', function() 
         const response = {};
         const brickName = 'dbinterface';
         const stubBroadcast = sinon.stub(helper.synchronizer, 'broadcast');
-        stubBroadcast.callsArgWith(2, 'done', brickName, response);
+        const promise = helper._process(mockInputContext);
+        stubBroadcast.resolves(response);
         mockOutputContext.emit('done', brickName, response);
-        sinon.assert.calledWith(mockInputContext.emit,
-          'done', helper.cementHelper.brickName, response);
+        return promise.then(() => {
+          sinon.assert.calledWith(mockInputContext.emit,
+            'done', helper.cementHelper.brickName, response);
+        });
       });
     });
 
@@ -86,9 +84,12 @@ describe('BusinessLogics - Schedule - DeleteByObjIdType - _process', function() 
       it('should emit reject event on inputContext', function() {
         const error = new Error('mockError');
         const brickName = 'dbinterface';
+        const promise = helper._process(mockInputContext);
         mockOutputContext.emit('reject', brickName, error);
-        sinon.assert.calledWith(mockInputContext.emit,
-          'reject', brickName, error);
+        return promise.then(() => {
+          sinon.assert.calledWith(mockInputContext.emit,
+            'reject', brickName, error);
+        });
       });
     });
 
@@ -96,9 +97,12 @@ describe('BusinessLogics - Schedule - DeleteByObjIdType - _process', function() 
       it('should emit error event on inputContext', function() {
         const error = new Error('mockError');
         const brickName = 'dbinterface';
+        const promise = helper._process(mockInputContext);
         mockOutputContext.emit('error', brickName, error);
-        sinon.assert.calledWith(mockInputContext.emit,
-          'error', brickName, error);
+        return promise.then(() => {
+          sinon.assert.calledWith(mockInputContext.emit,
+            'error', brickName, error);
+        });
       });
     });
   });
