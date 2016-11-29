@@ -42,6 +42,7 @@
     "request": "^2.74.0",
     "bson": "^0.5.2",
     "co": "^4.6.0",
+    "cron-parser": "^2.2.1",
     "cta-brick": "git+ssh://git@git.sami.int.thomsonreuters.com:compass/cta-brick.git",
     "cta-common": "git+ssh://git@git.sami.int.thomsonreuters.com:compass/cta-common.git",
     "cta-dblayer": "git+ssh://git@git.sami.int.thomsonreuters.com:compass/cta-dblayer.git",
