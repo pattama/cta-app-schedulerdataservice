@@ -1,4 +1,4 @@
-# Scheduler Application Interface
+# Scheduler Data Services Application Interface
 
 #### Rest API
 * [Setup a schedule](#setup-a-scehdule)
