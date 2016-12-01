@@ -3,9 +3,6 @@
 
 
 ## Scheduler Data Models
-[Schedule](#schedule)
-
-## Scheduler 
 + id: id
 + objId: String
   - Identifier of the Scenario for which the Execution is created
