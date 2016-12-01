@@ -1,6 +1,8 @@
-# Job Manager Data Contracts
+# Scheduler DataService for Compass Test Automation
+[Readme](README.md) | [Rest API](RESTAPI.md) | [DataModel](DATAMODEL.md) | [DataContract](DATACONTRACT.md) | [Document](DOCUMENTATION.md)
 
-## Input
+## Scheduler Data Contracts
+### Input
 * [Setup a schedule](#setup-a-scehdule)
 * [Update a schedule by ID](#update-a-schedule-by-id)
 * [Update a schedule by ObjId and Type](#update-a-schedule-by-objid-and-type)
@@ -21,7 +23,7 @@ Contract:
         "schedule": "* * * * *", // cron string or timestamp(number)
         "rest": {
             "method": "POST",
-            "url": "http://www.google.com",
+            "url": "http://localhost:3000",
             "headers": {
                 "Content-Type": "application/json"
             },
@@ -47,7 +49,7 @@ Contract:
         "schedule": "*/10 * * * * *",
         "rest": {
             "method": "GET",
-            "url": "http://www.yahoo.com",
+            "url": "http://localhost:3000",
             "headers": {
               "Content-Type": "application/json"
             },
@@ -74,7 +76,7 @@ Contract:
         "schedule": "*/10 * * * * *",
         "rest": {
             "method": "GET",
-            "url": "http://www.yahoo.com",
+            "url": "http://localhost:3000",
             "headers": {
                 "Content-Type": "application/json"
             },
