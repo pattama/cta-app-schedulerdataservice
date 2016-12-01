@@ -1,7 +1,11 @@
-# Schedule Data Models
+# Scheduler DataService for Compass Test Automation
+[Readme](README.md) | [Rest API](RESTAPI.md) | [DataModel](DATAMODEL.md) | [DataContract](DATACONTRACT.md) | [Document](DOCUMENTATION.md)
+
+
+## Scheduler Data Models
 [Schedule](#schedule)
 
-## Schedule
+## Scheduler 
 + id: id
 + objId: String
   - Identifier of the Scenario for which the Execution is created
