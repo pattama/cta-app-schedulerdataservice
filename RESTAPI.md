@@ -19,7 +19,7 @@ POST /schedules
   "schedule": "* * * * *", // cron string or timestamp(number)
   "rest": {
     "method": "POST",
-    "url": "http://www.google.com",
+    "url": "http://localhost:3000",
     "headers": {
       "Content-Type": "application/json"
     },
@@ -39,7 +39,7 @@ POST /schedules
   "schedule": "* * * * *",
   "rest": {
     "method": "POST",
-    "url": "http://www.google.com",
+    "url": "http://localhost:3000",
     "headers": {
       "Content-Type": "application/json"
     },
@@ -64,7 +64,7 @@ GET /schedules/:id
   "schedule": "* * * * *",
   "rest": {
     "method": "POST",
-    "url": "http://www.google.com",
+    "url": "http://localhost:3000",
     "headers": {
       "Content-Type": "application/json"
     },
@@ -91,7 +91,7 @@ GET /schedules/objId/:objid/type/:type
   "schedule": "* * * * *",
   "rest": {
     "method": "POST",
-    "url": "http://www.google.com",
+    "url": "http://localhost:3000",
     "headers": {
       "Content-Type": "application/json"
     },
@@ -111,7 +111,7 @@ PATCH /schedules/:id
   "schedule": "*/10 * * * * *",
   "rest": {
     "method": "GET",
-    "url": "http://www.yahoo.com",
+    "url": "http://localhost:3000",
     "headers": {
       "Content-Type": "application/json"
     },
@@ -130,7 +130,7 @@ PATCH /schedules/:id
   "schedule": "*/10 * * * * *",
   "rest": {
     "method": "GET",
-    "url": "http://www.yahoo.com",
+    "url": "http://localhost:3000",
     "headers": {
       "Content-Type": "application/json"
     },
@@ -150,7 +150,7 @@ PATCH /schedules/objid/:objid/type/:type
   "schedule": "*/10 * * * * *",
   "rest": {
     "method": "GET",
-    "url": "http://www.yahoo.com",
+    "url": "http://localhost:3000",
     "headers": {
       "Content-Type": "application/json"
     },
@@ -169,7 +169,7 @@ PATCH /schedules/objid/:objid/type/:type
   "schedule": "*/10 * * * * *",
   "rest": {
     "method": "GET",
-    "url": "http://www.yahoo.com",
+    "url": "http://localhost:3000",
     "headers": {
       "Content-Type": "application/json"
     },
@@ -195,7 +195,7 @@ DELETE /schedules/:id
   "schedule": "*/10 * * * * *",
   "rest": {
     "method": "GET",
-    "url": "http://www.yahoo.com",
+    "url": "http://localhost:3000",
     "headers": {
       "Content-Type": "application/json"
     },
@@ -222,7 +222,7 @@ DELETE /schedules/objid/:objid/type/:type
   "schedule": "*/10 * * * * *",
   "rest": {
     "method": "GET",
-    "url": "http://www.yahoo.com",
+    "url": "http://localhost:3000",
     "headers": {
       "Content-Type": "application/json"
     },
