@@ -1,9 +1,9 @@
 # Scheduler Data Service of Compass Test Automation
 
-[![build status](https://git.sami.int.thomsonreuters.com/compass/cta-jobmanager/badges/master/build.svg)](https://git.sami.int.thomsonreuters.com/compass/cta-jobmanager/commits/master)
-[![coverage report](https://git.sami.int.thomsonreuters.com/compass/cta-jobmanager/badges/master/coverage.svg)](https://git.sami.int.thomsonreuters.com/compass/cta-jobmanager/commits/master)
+[![build status](https://git.sami.int.thomsonreuters.com/compass/cta-app-schedulerdataservice/badges/master/build.svg)](https://git.sami.int.thomsonreuters.com/compass/cta-app-schedulerdataservice/commits/master)
+[![coverage report](https://git.sami.int.thomsonreuters.com/compass/cta-app-schedulerdataservice/badges/master/coverage.svg)](https://git.sami.int.thomsonreuters.com/compass/cta-app-schedulerdataservice/commits/master)
 
-# Summary
+## Summary
 * [Rest API](RESTAPI.md)
 * [DataModel](DATAMODEL.md)
 * [DataContract](DATACONTRACT.md)
