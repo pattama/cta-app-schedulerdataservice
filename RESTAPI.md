@@ -1,5 +1,5 @@
 # Scheduler DataService for Compass Test Automation
-[Readme](README.md) | [Rest API](RESTAPI.md) | [DataModel](DATAMODEL.md) | [DataContract](DATACONTRACT.md) | [Document](DOCUMENTATION.md)
+[Readme](README.md) | [Rest API](RESTAPI.md) | [DataModel](DATAMODEL.md) | [DataContract](DATACONTRACT.md) | [Document](DOCUMENTATION.md) | [Sequence Diagrams](https://www.lucidchart.com/documents/edit/4f14c5e7-a957-4099-902a-3b3a9e196b69)
 
 
 ## Scheduler Data Services Application Interface
