@@ -23,6 +23,7 @@ before_script:
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   - npm config set proxy http://webproxy.lon.corp.services:80
   - npm config set https-proxy http://webproxy.lon.corp.services:80
+  - rm -rf node_modules/
   - npm install
 
 #install_node_modules:
