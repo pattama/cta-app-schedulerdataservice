@@ -15,7 +15,7 @@ Contract:
 ```ruby
 {
     "nature": {
-        "type": "schedule",
+        "type": "schedules",
         "quality": "create"
     },
     "payload": {
@@ -42,7 +42,7 @@ Contract:
 ```ruby
 {
     "nature": {
-        "type": "schedule",
+        "type": "schedules",
         "quality": "update"
     },
     "payload": {
@@ -68,7 +68,7 @@ Contract:
 ```ruby
 {
     "nature": {
-        "type": "schedule",
+        "type": "schedules",
         "quality": "updatebyobjidtype"
     },
     "payload": {
@@ -95,7 +95,7 @@ Contract:
 ```ruby
 {
     "nature": {
-        "type": "schedule",
+        "type": "schedules",
         "quality": "delete"
     },
     "payload": {
@@ -110,7 +110,7 @@ Contract:
 ```ruby
 {
     "nature": {
-        "type": "schedule",
+        "type": "schedules",
         "quality": "deletebyobjidtype"
     },
     "payload": {

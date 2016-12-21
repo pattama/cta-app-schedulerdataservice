@@ -16,7 +16,7 @@
 #### Setup a schedule
 **Request**
 ```ruby
-POST /schedules
+POST /sch/schedules
 {
   "objId": "57e0e3ff7f256e3368cc4ecb",
   "type": "executionPendingTimeout",
@@ -57,7 +57,7 @@ POST /schedules
 #### Find a schedule by Id
 **Request**
 ```ruby
-GET /schedules/:id
+GET /sch/schedules/:id
 ```
 **Response**
 ```ruby
@@ -84,7 +84,7 @@ GET /schedules/:id
 #### Find a schedule by ObjId and Type
 **Request**
 ```ruby
-GET /schedules/objId/:objid/type/:type
+GET /sch/schedules/objId/:objid/type/:type
 ```
 **Response**
 ```ruby
@@ -110,7 +110,7 @@ GET /schedules/objId/:objid/type/:type
 
 #### Update a schedule by Id
 ```ruby
-PATCH /schedules/:id
+PATCH /sch/schedules/:id
 {
   "schedule": "*/10 * * * * *",
   "rest": {
@@ -149,7 +149,7 @@ PATCH /schedules/:id
 
 #### Update a schedule by ObjId and Type
 ```ruby
-PATCH /schedules/objid/:objid/type/:type
+PATCH /sch/schedules/objid/:objid/type/:type
 {
   "schedule": "*/10 * * * * *",
   "rest": {
@@ -188,7 +188,7 @@ PATCH /schedules/objid/:objid/type/:type
 
 #### Delete a schedule by Id
 ```ruby
-DELETE /schedules/:id
+DELETE /sch/schedules/:id
 ```
 **Response**
 ```ruby
@@ -215,7 +215,7 @@ DELETE /schedules/:id
 
 #### Delete a schedule by ObjId and Type
 ```ruby
-DELETE /schedules/objid/:objid/type/:type
+DELETE /sch/schedules/objid/:objid/type/:type
 ```
 **Response**
 ```ruby
