@@ -42,7 +42,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - findById', function() {
       };
       data = {
         nature: {
-          type: 'schedule',
+          type: 'schedules',
           quality: 'findbyid',
         },
         payload: {

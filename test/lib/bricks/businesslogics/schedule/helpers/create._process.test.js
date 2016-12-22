@@ -8,7 +8,7 @@ const nodepath = require('path');
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
 const pathToHelper = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/helpers/', 'create.js');
+  '/lib/bricks/businesslogics/schedules/helpers/', 'create.js');
 let Helper = require(pathToHelper);
 const pathToSchedule = nodepath.join(appRootPath,
   '/lib/utils/datamodels', 'schedule.js');

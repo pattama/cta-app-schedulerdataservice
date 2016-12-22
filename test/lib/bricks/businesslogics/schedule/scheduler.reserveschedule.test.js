@@ -8,7 +8,7 @@ const nodepath = require('path');
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
 const pathToScheduler = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/', 'scheduler.js');
+  '/lib/bricks/businesslogics/schedules/', 'scheduler.js');
 const Scheduler = require(pathToScheduler);
 
 const DEFAULTCONFIG = require('./index.config.testdata.js');

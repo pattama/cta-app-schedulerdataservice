@@ -56,7 +56,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - find', function() {
       sinonCustomMatcher = sinon.match(function(data) {
         return _.isEqual(data, {
           nature: {
-            type: 'schedule',
+            type: 'schedules',
             quality: 'find',
           },
           payload: {
