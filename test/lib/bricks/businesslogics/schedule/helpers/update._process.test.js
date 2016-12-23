@@ -9,7 +9,7 @@ const ObjectID = require('bson').ObjectID;
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
 const pathToHelper = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/helpers/', 'update.js');
+  '/lib/bricks/businesslogics/schedules/helpers/', 'update.js');
 const Helper = require(pathToHelper);
 
 const DEFAULTCONFIG = require('../index.config.testdata.js');

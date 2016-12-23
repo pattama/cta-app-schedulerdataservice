@@ -9,7 +9,7 @@ const requireSubvert = require('require-subvert')(__dirname);
 const nodepath = require('path');
 const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const pathToScheduler = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/', 'scheduler.js');
+  '/lib/bricks/businesslogics/schedules/', 'scheduler.js');
 
 const ObjectID = require('bson').ObjectID;
 

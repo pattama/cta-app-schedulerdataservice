@@ -42,7 +42,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - delete', function() {
       };
       data = {
         nature: {
-          type: 'schedule',
+          type: 'schedules',
           quality: 'delete',
         },
         payload: {

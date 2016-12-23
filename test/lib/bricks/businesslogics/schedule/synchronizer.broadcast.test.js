@@ -8,7 +8,7 @@ const nodepath = require('path');
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
 const pathToSynchronizer = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/', 'synchronizer.js');
+  '/lib/bricks/businesslogics/schedules/', 'synchronizer.js');
 const Synchronizer = require(pathToSynchronizer);
 
 const DEFAULTCONFIG = require('./index.config.testdata.js');
@@ -57,7 +57,7 @@ describe('BusinessLogics - Schedule - Synchronizer - broadcast', function() {
         },
         payload: {
           nature: {
-            type: 'schedule',
+            type: 'schedules',
             quality: 'synchronize',
           },
           payload: {
