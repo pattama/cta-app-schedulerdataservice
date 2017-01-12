@@ -67,6 +67,7 @@ describe('DatabaseInterfaces - MongoDB - UpdateOne - _process', function() {
       };
       const mongoDbOptions = {
         returnOriginal: false,
+        upsert: false
       };
       outputJOB = {
         nature: {
@@ -93,6 +94,7 @@ describe('DatabaseInterfaces - MongoDB - UpdateOne - _process', function() {
     after(function() {
       helper.cementHelper.createContext.restore();
     });
+
     it('should send a new Context', function() {
       sinon.assert.calledWith(helper.cementHelper.createContext, outputJOB);
       sinon.assert.called(mockOutputContext.publish);
