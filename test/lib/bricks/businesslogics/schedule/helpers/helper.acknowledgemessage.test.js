@@ -25,7 +25,7 @@ const DEFAULTCEMENTHELPER = {
   createContext: function() {},
 };
 
-describe.only('BusinessLogics - Schedule - Helper - acknowledgeMessage', () => {
+describe('BusinessLogics - Schedule - Helper - acknowledgeMessage', () => {
   let helper;
   context('when everything ok', function() {
     const ackId = '0123456789ABCDEF';
