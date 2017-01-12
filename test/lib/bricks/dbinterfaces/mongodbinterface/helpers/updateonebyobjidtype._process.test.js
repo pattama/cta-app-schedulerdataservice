@@ -67,7 +67,7 @@ describe('DatabaseInterfaces - MongoDB - UpdateOne - _process', function() {
       };
       const mongoDbOptions = {
         returnOriginal: false,
-        upsert: false
+        upsert: false,
       };
       outputJOB = {
         nature: {
