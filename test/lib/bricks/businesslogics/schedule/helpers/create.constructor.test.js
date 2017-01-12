@@ -7,7 +7,7 @@ const nodepath = require('path');
 
 const Logger = require('cta-logger');
 const Base = require(nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/base/', 'basehelper.js'));
+  '/lib/bricks/businesslogics/schedules/helpers/', 'helper.js'));
 const Helper = require(nodepath.join(appRootPath,
   '/lib/bricks/businesslogics/schedules/helpers/', 'create.js'));
 
@@ -30,7 +30,7 @@ describe('BusinessLogics - Schedule - Create - constructor', function() {
       helper = new Helper(DEFAULTCEMENTHELPER, DEFAULTLOGGER);
     });
 
-    it('should extend BaseHelper', function() {
+    it('should extend Helper', function() {
       expect(Object.getPrototypeOf(Helper)).to.equal(Base);
     });
 

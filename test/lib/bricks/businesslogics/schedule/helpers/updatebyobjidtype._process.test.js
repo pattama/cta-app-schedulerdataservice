@@ -55,7 +55,6 @@ describe('BusinessLogics - Schedule - UpdateByObjIdType - _process', function() 
         },
       };
       mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJOB);
-      mockOutputContext.publish = sinon.stub();
 
       helper = new Helper(DEFAULTCEMENTHELPER, DEFAULTLOGGER);
       sinon.stub(helper.cementHelper, 'createContext')
@@ -76,9 +75,11 @@ describe('BusinessLogics - Schedule - UpdateByObjIdType - _process', function() 
       it('should emit done event on inputContext', function() {
         const response = {};
         const promise = helper._process(mockInputContext);
-        const stubBroadcast = sinon.stub(helper.synchronizer, 'broadcast');
-        stubBroadcast.resolves(response);
-        mockOutputContext.emit('done', 'dblayer', response);
+        sinon.stub(helper, 'acknowledgeMessage').resolves();
+        sinon.stub(helper.synchronizer, 'broadcast').resolves(response);
+        mockOutputContext.publish = () => {
+          mockOutputContext.emit('done', 'dblayer', response);
+        };
         return promise.then(() => {
           sinon.assert.calledWith(mockInputContext.emit,
             'done', helper.cementHelper.brickName, response);
@@ -91,7 +92,9 @@ describe('BusinessLogics - Schedule - UpdateByObjIdType - _process', function() 
         const error = new Error('mockError');
         const brickName = 'dbinterface';
         const promise = helper._process(mockInputContext);
-        mockOutputContext.emit('reject', brickName, error);
+        mockOutputContext.publish = () => {
+          mockOutputContext.emit('reject', brickName, error);
+        };
         return promise.then(() => {
           sinon.assert.calledWith(mockInputContext.emit,
             'reject', brickName, error);
@@ -104,7 +107,9 @@ describe('BusinessLogics - Schedule - UpdateByObjIdType - _process', function() 
         const error = new Error('mockError');
         const brickName = 'dbinterface';
         const promise = helper._process(mockInputContext);
-        mockOutputContext.emit('error', brickName, error);
+        mockOutputContext.publish = () => {
+          mockOutputContext.emit('error', brickName, error);
+        };
         return promise.then(() => {
           sinon.assert.calledWith(mockInputContext.emit,
             'error', brickName, error);
