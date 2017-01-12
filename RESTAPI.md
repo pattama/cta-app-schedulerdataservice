@@ -5,15 +5,16 @@
 ## Scheduler Data Services Application Interface
 
 #### Rest API
-* [Setup a schedule](#setup-a-scehdule)
+* [Create a schedule](#create-a-scehdule)
 * [Find a schedule by Id](#find-a-schedule-by-id)
 * [Find a schedule by ObjId and Type](#find-a-schedule-by-objid-and-type)
 * [Update a schedule by ID](#update-a-schedule-by-id)
 * [Update a schedule by ObjId and Type](#update-a-schedule-by-objid-and-type)
+* [Upsert a schedule by ObjId and Type](#upsert-a-schedule-by-objid-and-type)
 * [Delete a schedule by ID](#delete-a-schedule-by-id)
 * [Delete a schedule by ObjId and Type](#delete-a-schedule-by-objid-and-type)
 
-#### Setup a schedule
+#### Create a schedule
 **Request**
 ```ruby
 POST /sch/schedules
@@ -147,9 +148,9 @@ PATCH /sch/schedules/:id
 }
 ```
 
-#### Update a schedule by ObjId and Type
+#### Upsert a schedule by ObjId and Type
 ```ruby
-PATCH /sch/schedules/objid/:objid/type/:type
+POST /sch/schedules/objid/:objid/type/:type
 {
   "schedule": "*/10 * * * * *",
   "rest": {
