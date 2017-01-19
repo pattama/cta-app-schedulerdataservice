@@ -45,7 +45,7 @@ describe('BusinessLogics - Schedule - Helper - acknowledgeMessage', () => {
       sinon.stub(mockInputContext, 'emit');
       outputJOB = {
         nature: {
-          type: 'message',
+          type: 'messages',
           quality: 'acknowledge',
         },
         payload: {
