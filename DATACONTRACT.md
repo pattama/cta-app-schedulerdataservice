@@ -4,18 +4,19 @@
 
 ## Scheduler Data Contracts
 ### Input
-* [Setup a schedule](#setup-a-scehdule)
+* [Create a schedule](#create-a-scehdule)
 * [Update a schedule by ID](#update-a-schedule-by-id)
 * [Update a schedule by ObjId and Type](#update-a-schedule-by-objid-and-type)
+* [Upsert a schedule by ObjId and Type](#upsert-a-schedule-by-objid-and-type)
 * [Delete a schedule by ID](#delete-a-schedule-by-id)
 * [Delete a schedule by ObjId and Type](#delete-a-schedule-by-objid-and-type)
 
-#### Setup a schedule
+#### Create a schedule
 Contract:
 ```ruby
 {
     "nature": {
-        "type": "schedule",
+        "type": "schedules",
         "quality": "create"
     },
     "payload": {
@@ -42,7 +43,7 @@ Contract:
 ```ruby
 {
     "nature": {
-        "type": "schedule",
+        "type": "schedules",
         "quality": "update"
     },
     "payload": {
@@ -68,8 +69,35 @@ Contract:
 ```ruby
 {
     "nature": {
-        "type": "schedule",
+        "type": "schedules",
         "quality": "updatebyobjidtype"
+    },
+    "payload": {
+        "objId": "57e0e3ff7f256e3368cc4ecb",
+        "type": "executionPendingTimeout",
+        "schedule": "*/10 * * * * *",
+        "rest": {
+            "method": "GET",
+            "url": "http://localhost:3000",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "body": {
+                "nothing in real":"just to show people can add headers and body"
+            }
+        }
+    }
+}
+```
+
+
+#### Upsert a schedule by ObjId and Type
+Contract:
+```ruby
+{
+    "nature": {
+        "type": "schedules",
+        "quality": "upsertbyobjidtype"
     },
     "payload": {
         "objId": "57e0e3ff7f256e3368cc4ecb",
@@ -95,7 +123,7 @@ Contract:
 ```ruby
 {
     "nature": {
-        "type": "schedule",
+        "type": "schedules",
         "quality": "delete"
     },
     "payload": {
@@ -110,7 +138,7 @@ Contract:
 ```ruby
 {
     "nature": {
-        "type": "schedule",
+        "type": "schedules",
         "quality": "deletebyobjidtype"
     },
     "payload": {

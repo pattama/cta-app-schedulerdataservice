@@ -42,7 +42,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - findByObjIdType', function() 
       };
       data = {
         nature: {
-          type: 'schedule',
+          type: 'schedules',
           quality: 'findbyobjidtype',
         },
         payload: {

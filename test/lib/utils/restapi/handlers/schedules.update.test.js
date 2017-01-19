@@ -47,7 +47,7 @@ describe('Utils - RESTAPI - Handlers - Schedule - update', function() {
       };
       data = {
         nature: {
-          type: 'schedule',
+          type: 'schedules',
           quality: 'update',
         },
         payload: req.body,

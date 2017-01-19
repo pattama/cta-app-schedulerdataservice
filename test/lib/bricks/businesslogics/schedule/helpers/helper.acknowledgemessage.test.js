@@ -1,13 +1,16 @@
 'use strict';
 
 const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
+const Context = require('cta-flowcontrol').Context;
 const sinon = require('sinon');
+const chai = require('chai');
+const expect = chai.expect;
 const nodepath = require('path');
 
 const Logger = require('cta-logger');
-const Context = require('cta-flowcontrol').Context;
-const Helper = require(nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedules/helpers/', 'find.js'));
+const pathToHelper = nodepath.join(appRootPath,
+  '/lib/bricks/businesslogics/schedules/helpers/', 'update.js');
+const Helper = require(pathToHelper);
 
 const DEFAULTCONFIG = require('../index.config.testdata.js');
 const DEFAULTLOGGER = new Logger(null, null, DEFAULTCONFIG.name);
@@ -22,69 +25,56 @@ const DEFAULTCEMENTHELPER = {
   createContext: function() {},
 };
 
-describe('BusinessLogics - Schedule - Find - _process', function() {
+describe('BusinessLogics - Schedule - Helper - acknowledgeMessage', () => {
   let helper;
-  before(function() {
-    helper = new Helper(DEFAULTCEMENTHELPER, DEFAULTLOGGER);
-  });
   context('when everything ok', function() {
-    const inputJOB = {
+    const ackId = '0123456789ABCDEF';
+    const DEFAULTINPUTJOB = {
+      id: ackId,
       nature: {
         type: 'schedule',
-        quality: Helper.name.toLowerCase(),
+        quality: 'update',
       },
       payload: {
-        filter: {
-          limit: 10,
-          offset: 0,
-          sort: {
-            _id: -1,
-          },
-        },
-        query: {
-          foo: 'bar',
-        },
       },
     };
-    const mockInputContext = new Context(DEFAULTCEMENTHELPER, inputJOB);
+    const mockInputContext = new Context(DEFAULTCEMENTHELPER, DEFAULTINPUTJOB);
     let mockOutputContext;
     let outputJOB;
     before(function() {
       sinon.stub(mockInputContext, 'emit');
-
       outputJOB = {
         nature: {
-          type: 'dbinterface',
-          quality: 'find',
+          type: 'message',
+          quality: 'acknowledge',
         },
         payload: {
-          type: 'schedule',
-          filter: inputJOB.payload.filter,
-          query: inputJOB.payload.query,
+          id: ackId,
         },
       };
       mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJOB);
       mockOutputContext.publish = sinon.stub();
+
+      helper = new Helper(DEFAULTCEMENTHELPER, DEFAULTLOGGER);
       sinon.stub(helper.cementHelper, 'createContext')
         .withArgs(outputJOB)
         .returns(mockOutputContext);
-      helper._process(mockInputContext);
     });
     after(function() {
       helper.cementHelper.createContext.restore();
-    });
-    it('should send a new Context', function() {
-      sinon.assert.calledWith(helper.cementHelper.createContext, outputJOB);
-      sinon.assert.called(mockOutputContext.publish);
     });
 
     context('when outputContext emits done event', function() {
       it('should emit done event on inputContext', function() {
         const response = {};
-        const brickName = 'dbinterface';
-        mockOutputContext.emit('done', brickName, response);
-        sinon.assert.calledWith(mockInputContext.emit,
-          'done', helper.cementHelper.brickName, response);
+        const promise = helper.acknowledgeMessage(mockInputContext);
+        mockOutputContext.emit('done', 'cta-io', response);
+
+        return expect(promise).to.eventually.deep.equal({
+          returnCode: 'done',
+          brickName: helper.cementHelper.brickName,
+          response,
+        });
       });
     });
 
@@ -92,9 +82,13 @@ describe('BusinessLogics - Schedule - Find - _process', function() {
       it('should emit reject event on inputContext', function() {
         const error = new Error('mockError');
         const brickName = 'dbinterface';
+        const promise = helper.acknowledgeMessage(mockInputContext);
         mockOutputContext.emit('reject', brickName, error);
-        sinon.assert.calledWith(mockInputContext.emit,
-          'reject', brickName, error);
+        return expect(promise).to.eventually.be.rejectedWith({
+          returnCode: 'reject',
+          brickName,
+          response: error,
+        });
       });
     });
 
@@ -102,9 +96,13 @@ describe('BusinessLogics - Schedule - Find - _process', function() {
       it('should emit error event on inputContext', function() {
         const error = new Error('mockError');
         const brickName = 'dbinterface';
+        const promise = helper.acknowledgeMessage(mockInputContext);
         mockOutputContext.emit('error', brickName, error);
-        sinon.assert.calledWith(mockInputContext.emit,
-          'error', brickName, error);
+        return expect(promise).to.eventually.be.rejectedWith({
+          returnCode: 'error',
+          brickName,
+          response: error,
+        });
       });
     });
   });

@@ -10,7 +10,7 @@ const requireSubvert = require('require-subvert')(__dirname);
 const Context = require('cta-flowcontrol').Context;
 const Logger = require('cta-logger');
 const logicPath = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/', 'index.js');
+  '/lib/bricks/businesslogics/schedules/', 'index.js');
 
 const DEFAULTCONFIG = require('./index.config.testdata.js');
 const DEFAULTLOGGER = new Logger(null, null, DEFAULTCONFIG.name);

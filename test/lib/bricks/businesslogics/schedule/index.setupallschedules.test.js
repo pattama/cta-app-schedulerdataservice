@@ -10,9 +10,9 @@ const nodepath = require('path');
 const requireSubvert = require('require-subvert')(__dirname);
 const Logger = require('cta-logger');
 const logicPath = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/', 'index.js');
+  '/lib/bricks/businesslogics/schedules/', 'index.js');
 const pathToScheduler = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/', 'scheduler.js');
+  '/lib/bricks/businesslogics/schedules/', 'scheduler.js');
 
 const DEFAULTCONFIG = require('./index.config.testdata.js');
 const DEFAULTLOGGER = new Logger(null, null, DEFAULTCONFIG.name);

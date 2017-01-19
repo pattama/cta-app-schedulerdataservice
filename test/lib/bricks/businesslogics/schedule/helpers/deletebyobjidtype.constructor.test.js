@@ -7,9 +7,9 @@ const nodepath = require('path');
 
 const Logger = require('cta-logger');
 const Base = require(nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/base/', 'basehelper.js'));
+  '/lib/bricks/businesslogics/schedules/helpers/', 'helper.js'));
 const Helper = require(nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/helpers/', 'deletebyobjidtype.js'));
+  '/lib/bricks/businesslogics/schedules/helpers/', 'deletebyobjidtype.js'));
 
 const DEFAULTCONFIG = require('../index.config.testdata.js');
 const DEFAULTLOGGER = new Logger(null, null, DEFAULTCONFIG.name);

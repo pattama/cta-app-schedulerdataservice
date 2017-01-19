@@ -1,8 +1,8 @@
 'use strict';
 const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const sinon = require('sinon');
+const _ = require('lodash');
 const nodepath = require('path');
-const ObjectID = require('bson').ObjectID;
 
 const EventEmitter = require('events');
 const Logger = require('cta-logger');
@@ -20,34 +20,37 @@ const DEFAULTCEMENTHELPER = {
   },
   createContext: function() {},
 };
+const SCHEDULE = require('./schedules.update.sample.testdata.js');
 
-describe('Utils - RESTAPI - Handlers - Schedules - delete', function() {
+describe('Utils - RESTAPI - Handlers - Schedule - upsertByObjIdType', function() {
   let handler;
   before(function() {
     handler = new Handler(DEFAULTCEMENTHELPER);
   });
-  context('when everything ok', function() {
+
+  context('when objId and type is provided (update)', function() {
     const req = {};
     const res = {
-      status: function() {
+      status: function () {
         return this;
       },
-      send: function() {},
+      send: function () {
+      },
     };
     let data;
     let mockContext;
-    before(function() {
+    before(function () {
+      req.body = _.cloneDeep(SCHEDULE);
       req.params = {
-        id: (new ObjectID()).toString(),
+        objId: 'foo',
+        type: 'bar',
       };
       data = {
         nature: {
           type: 'schedules',
-          quality: 'delete',
+          quality: 'upsertbyobjidtype',
         },
-        payload: {
-          id: req.params.id,
-        },
+        payload: req.body,
       };
       mockContext = new EventEmitter();
       mockContext.publish = sinon.stub();
@@ -55,57 +58,20 @@ describe('Utils - RESTAPI - Handlers - Schedules - delete', function() {
         .withArgs(data)
         .returns(mockContext);
     });
-    after(function() {
+    after(function () {
       handler.cementHelper.createContext.restore();
     });
-    it('should send a new Context', function() {
-      handler.delete(req, res, null);
+    it('should send a new Context', function () {
+      handler.upsertByObjIdType(req, res, null);
       sinon.assert.calledWith(handler.cementHelper.createContext, data);
       sinon.assert.called(mockContext.publish);
-    });
-
-    context('when Context emits done event', function() {
-      context('when document is found', function() {
-        before(function() {
-          sinon.spy(res, 'send');
-          handler.delete(req, res, null);
-        });
-        after(function() {
-          res.send.restore();
-        });
-        it('should send the found Object (res.send())', function() {
-          const mockBrickname = 'businesslogic';
-          const response = { id: req.params.id };
-          mockContext.emit('done', mockBrickname, response);
-          sinon.assert.calledWith(res.send, response);
-        });
-      });
-
-      context('when document is not found', function() {
-        before(function() {
-          sinon.spy(res, 'status');
-          sinon.spy(res, 'send');
-          handler.delete(req, res, null);
-        });
-        after(function() {
-          res.status.restore();
-          res.send.restore();
-        });
-        it('should send 404', function() {
-          const mockBrickname = 'businesslogic';
-          const response = null;
-          mockContext.emit('done', mockBrickname, response);
-          sinon.assert.calledWith(res.status, 404);
-          sinon.assert.calledWith(res.send, 'Schedule not found.');
-        });
-      });
     });
 
     context('when Context emits error event', function() {
       before(function() {
         sinon.spy(res, 'status');
         sinon.spy(res, 'send');
-        handler.delete(req, res, null);
+        handler.upsertByObjIdType(req, res, null);
       });
       after(function() {
         res.status.restore();
@@ -124,7 +90,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - delete', function() {
       before(function() {
         sinon.spy(res, 'status');
         sinon.spy(res, 'send');
-        handler.delete(req, res, null);
+        handler.upsertByObjIdType(req, res, null);
       });
       after(function() {
         res.status.restore();
@@ -138,5 +104,22 @@ describe('Utils - RESTAPI - Handlers - Schedules - delete', function() {
         sinon.assert.calledWith(res.send, error.message);
       });
     });
+
+    context('when document is found', function() {
+      before(function() {
+        sinon.spy(res, 'send');
+        handler.upsertByObjIdType(req, res, null);
+      });
+      after(function() {
+        res.send.restore();
+      });
+      it('should send the found Object (res.send())', function() {
+        const mockBrickname = 'businesslogic';
+        const response = { id: req.body.id };
+        mockContext.emit('done', mockBrickname, response);
+        sinon.assert.calledWith(res.send, response);
+      });
+    });
   });
 });
+

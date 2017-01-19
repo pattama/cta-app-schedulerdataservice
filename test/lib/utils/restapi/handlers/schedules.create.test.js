@@ -43,7 +43,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - create', function() {
       req.body = _.cloneDeep(SCHEDULE);
       data = {
         nature: {
-          type: 'schedule',
+          type: 'schedules',
           quality: 'create',
         },
         payload: req.body,
@@ -140,7 +140,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - create', function() {
         req.body = _.cloneDeep(SCHEDULE);
         data = {
           nature: {
-            type: 'schedule',
+            type: 'schedules',
             quality: 'create',
           },
           payload: req.body,
