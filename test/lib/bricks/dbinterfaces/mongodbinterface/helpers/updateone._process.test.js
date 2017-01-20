@@ -36,7 +36,7 @@ describe('DatabaseInterfaces - MongoDB - UpdateOne - _process', function() {
       quality: 'updateone',
     },
     payload: {
-      type: 'schedule',
+      type: 'schedules',
       id: mockId.toString(),
       content: {
         schedule: '* * * * *',

@@ -47,7 +47,7 @@ describe('BusinessLogics - Schedule - Delete - _process', function() {
           quality: 'deleteone',
         },
         payload: {
-          type: 'schedule',
+          type: 'schedules',
           id: inputJOB.payload.id,
         },
       };

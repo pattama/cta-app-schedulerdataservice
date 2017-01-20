@@ -47,7 +47,7 @@ describe('BusinessLogics - Schedule - FindById - _process', function() {
           quality: 'findbyid',
         },
         payload: {
-          type: 'schedule',
+          type: 'schedules',
           id: inputJOB.payload.id,
         },
       };

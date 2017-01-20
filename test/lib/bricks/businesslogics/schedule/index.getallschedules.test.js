@@ -37,7 +37,7 @@ describe('BusinessLogics - Schedule - getAllSchedules', function() {
           quality: 'find',
         },
         payload: {
-          type: 'schedule',
+          type: 'schedules',
           filter: { limit: 0, offset: 0 },
           query: {},
         },

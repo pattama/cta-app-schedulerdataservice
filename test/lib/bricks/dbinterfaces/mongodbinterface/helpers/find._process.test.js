@@ -31,7 +31,7 @@ describe('DatabaseInterfaces - MongoDB - Find - _process', function() {
       quality: 'findbyid',
     },
     payload: {
-      type: 'schedule',
+      type: 'schedules',
       filter: {
         limit: 10,
         offset: 0,

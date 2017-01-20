@@ -50,7 +50,7 @@ describe('BusinessLogics - Schedule - DeleteByObjIdType - _process', function() 
           quality: 'deleteonebyobjidtype',
         },
         payload: {
-          collection: 'schedule',
+          collection: 'schedules',
           objId: inputJOB.payload.objId,
           type: inputJOB.payload.type,
         },
