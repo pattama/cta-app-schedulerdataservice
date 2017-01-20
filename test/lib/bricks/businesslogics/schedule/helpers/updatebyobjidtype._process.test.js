@@ -48,7 +48,7 @@ describe('BusinessLogics - Schedule - UpdateByObjIdType - _process', function() 
           quality: 'updateonebyobjidtype',
         },
         payload: {
-          collection: 'schedule',
+          collection: 'schedules',
           objId: DEFAULTINPUTJOB.payload.objId,
           type: DEFAULTINPUTJOB.payload.type,
           content: {},

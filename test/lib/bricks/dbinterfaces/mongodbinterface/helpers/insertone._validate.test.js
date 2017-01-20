@@ -36,7 +36,7 @@ describe('DatabaseInterfaces - MongoDB - InsertOne - _validate', function() {
       quality: 'insertone',
     },
     payload: {
-      type: 'schedule',
+      type: 'schedules',
       content: {
         id: mockId.toString(),
       },

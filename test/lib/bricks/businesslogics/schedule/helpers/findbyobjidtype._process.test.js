@@ -50,7 +50,7 @@ describe('BusinessLogics - Schedule - FindByObjIdType - _process', function() {
           quality: 'findbyobjidtype',
         },
         payload: {
-          collection: 'schedule',
+          collection: 'schedules',
           objId: inputJOB.payload.objId,
           type: inputJOB.payload.type,
         },

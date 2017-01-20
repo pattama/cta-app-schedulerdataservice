@@ -58,7 +58,7 @@ describe('BusinessLogics - Schedule - Find - _process', function() {
           quality: 'find',
         },
         payload: {
-          type: 'schedule',
+          type: 'schedules',
           filter: inputJOB.payload.filter,
           query: inputJOB.payload.query,
         },

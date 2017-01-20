@@ -34,7 +34,7 @@ describe('DatabaseInterfaces - MongoDB - InsertOne - constructor', function() {
       quality: 'insertone',
     },
     payload: {
-      type: 'schedule',
+      type: 'schedules',
       content: {
         id: mockId.toString(),
       },
