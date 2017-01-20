@@ -34,7 +34,7 @@ describe('DatabaseInterfaces - MongoDB - DeleteOne - constructor', function() {
       quality: 'deleteone',
     },
     payload: {
-      type: 'schedule',
+      type: 'schedules',
       id: mockId.toString(),
     },
   };

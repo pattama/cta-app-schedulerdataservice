@@ -52,7 +52,7 @@ describe('BusinessLogics - Schedule - Synchronizer - broadcast', function() {
       };
       outputJOB = {
         nature: {
-          type: 'message',
+          type: 'messages',
           quality: 'publish',
         },
         payload: {

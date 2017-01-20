@@ -49,7 +49,7 @@ describe('BusinessLogics - Schedule - Update - _process', function() {
           quality: 'updateone',
         },
         payload: {
-          type: 'schedule',
+          type: 'schedules',
           id: DEFAULTINPUTJOB.payload.id,
           content: {},
         },

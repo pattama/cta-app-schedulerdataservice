@@ -67,7 +67,7 @@ describe('BusinessLogics - Schedule - Create - _process', function() {
           quality: 'insertone',
         },
         payload: {
-          type: 'schedule',
+          type: 'schedules',
           content: mockSchedule,
         },
       };

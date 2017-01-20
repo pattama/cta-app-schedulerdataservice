@@ -34,7 +34,7 @@ describe('DatabaseInterfaces - MongoDB - FindByObjIdType - constructor', functio
       quality: 'findbyobjidtype',
     },
     payload: {
-      collection: 'schedule',
+      collection: 'schedules',
       objId: '57e2f5b08e14f36c4a20191d',
       type: 'foo',
     },

@@ -36,7 +36,7 @@ describe('DatabaseInterfaces - MongoDB - FindById - _validate', function() {
       quality: 'findbyid',
     },
     payload: {
-      type: 'schedule',
+      type: 'schedules',
       id: mockId.toString(),
     },
   };
