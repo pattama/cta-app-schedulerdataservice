@@ -10,7 +10,8 @@
     "codecoverage": "istanbul cover node_modules/mocha/bin/_mocha -- --recursive test ",
     "all": "npm run lint && npm run codecoverage",
     "gitlab-ci": "npm run all",
-    "docs": "jsdoc2md \"lib/**/*.js\" > DOCUMENTATION.md"
+    "docs": "jsdoc2md \"lib/**/*.js\" > DOCUMENTATION.md",
+    "start": "node lib/apps/main/app.js"
   },
   "repository": {
     "type": "git",

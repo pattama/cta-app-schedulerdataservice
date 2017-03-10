@@ -1,0 +1,16 @@
+version: '2'
+services:
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - "15672:15672"
+  mongodb:
+    image: "mongo"
+  scheduler:
+    build: .
+    ports:
+      - "3011:3011"
+    depends_on: 
+      - rabbitmq
+      - mongodb
+
