@@ -6,7 +6,7 @@ services:
       - "15672:15672"
   mongodb:
     image: "mongo"
-  scheduler:
+  sch:
     build: .
     image: cta-oss/cta-app-schedulerdataservice:compose
     ports:
