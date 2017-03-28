@@ -53,7 +53,7 @@ We also cover in detail :
 * The [Rest API](https://git.sami.int.thomsonreuters.com/compass/cta-app-schedulerdataservice/blob/master/RESTAPI.md) is composed of multiple REST service to perform actions on CTA.
 * A [DataContract](https://git.sami.int.thomsonreuters.com/compass/cta-app-schedulerdataservice/blob/master/DATACONTRACT.md) is a formal agreement between a bricks.
 * The [Document](https://git.sami.int.thomsonreuters.com/compass/cta-app-schedulerdataservice/blob/master/DOCUMENTATION.md) associated with a software project and the system being.
-* A [Sequence Diagrams](https://git.sami.int.thomsonreuters.com/compass/cta-app-schedulerdataservice/wikis/sequencediagram) is an interaction diagram that shows how objects operate with one another and in what order.
+* A [Sequence Diagrams](https://www.lucidchart.com/documents/edit/4f14c5e7-a957-4099-902a-3b3a9e196b69/0) is an interaction diagram that shows how objects operate with one another and in what order.
 
 ------
 
