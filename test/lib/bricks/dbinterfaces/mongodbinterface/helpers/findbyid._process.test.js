@@ -1,6 +1,6 @@
 'use strict';
 
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const sinon = require('sinon');
 const nodepath = require('path');
 const ObjectID = require('bson').ObjectID;
@@ -34,7 +34,7 @@ describe('DatabaseInterfaces - MongoDB - FindById - constructor', function() {
       quality: 'findbyid',
     },
     payload: {
-      type: 'schedule',
+      type: 'schedules',
       id: mockId.toString(),
     },
   };
@@ -94,9 +94,9 @@ describe('DatabaseInterfaces - MongoDB - FindById - constructor', function() {
           const response = [doc];
 
           // cta object
-          //const object = _.cloneDeep(doc);
-          //object.id = mockId.toString();
-          //delete object._id;
+          // const object = _.cloneDeep(doc);
+          // object.id = mockId.toString();
+          // delete object._id;
 
           mockOutputContext.emit('done', 'dblayer', response);
           sinon.assert.calledWith(mockInputContext.emit,

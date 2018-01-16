@@ -1,5 +1,5 @@
 'use strict';
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const sinon = require('sinon');
 const _ = require('lodash');
 const nodepath = require('path');
@@ -47,13 +47,10 @@ describe('Utils - RESTAPI - Handlers - Schedule - update', function() {
       };
       data = {
         nature: {
-          type: 'schedule',
+          type: 'schedules',
           quality: 'update',
         },
-        payload: {
-          id: req.params.id,
-          content: req.body,
-        },
+        payload: req.body,
       };
       mockContext = new EventEmitter();
       mockContext.publish = sinon.stub();

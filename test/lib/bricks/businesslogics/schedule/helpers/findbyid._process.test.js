@@ -1,13 +1,13 @@
 'use strict';
 
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const sinon = require('sinon');
 const nodepath = require('path');
 
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
 const Helper = require(nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/helpers/', 'findbyid.js'));
+  '/lib/bricks/businesslogics/schedules/helpers/', 'findbyid.js'));
 
 const DEFAULTCONFIG = require('../index.config.testdata.js');
 const DEFAULTLOGGER = new Logger(null, null, DEFAULTCONFIG.name);
@@ -47,7 +47,7 @@ describe('BusinessLogics - Schedule - FindById - _process', function() {
           quality: 'findbyid',
         },
         payload: {
-          type: 'schedule',
+          type: 'schedules',
           id: inputJOB.payload.id,
         },
       };

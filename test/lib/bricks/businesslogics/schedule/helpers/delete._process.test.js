@@ -1,13 +1,13 @@
 'use strict';
 
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const sinon = require('sinon');
 const nodepath = require('path');
 
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
 const Helper = require(nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/helpers/', 'delete.js'));
+  '/lib/bricks/businesslogics/schedules/helpers/', 'delete.js'));
 
 const DEFAULTCONFIG = require('../index.config.testdata.js');
 const DEFAULTLOGGER = new Logger(null, null, DEFAULTCONFIG.name);
@@ -47,34 +47,33 @@ describe('BusinessLogics - Schedule - Delete - _process', function() {
           quality: 'deleteone',
         },
         payload: {
-          type: 'schedule',
+          type: 'schedules',
           id: inputJOB.payload.id,
         },
       };
       mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJOB);
-      mockOutputContext.publish = sinon.stub();
       sinon.stub(helper.cementHelper, 'createContext')
         .withArgs(outputJOB)
         .returns(mockOutputContext);
-      helper._process(mockInputContext);
     });
     after(function() {
       helper.cementHelper.createContext.restore();
-    });
-    it('should send a new Context', function() {
-      sinon.assert.calledWith(helper.cementHelper.createContext, outputJOB);
-      sinon.assert.called(mockOutputContext.publish);
     });
 
     context('when outputContext emits done event', function() {
       it('should emit done event on inputContext', function() {
         const response = {};
         const brickName = 'dbinterface';
-        const stubBroadcast = sinon.stub(helper.synchronizer, 'broadcast');
-        stubBroadcast.callsArgWith(2, 'done', brickName, response);
-        mockOutputContext.emit('done', brickName, response);
-        sinon.assert.calledWith(mockInputContext.emit,
-          'done', helper.cementHelper.brickName, response);
+        sinon.stub(helper, 'acknowledgeMessage').resolves();
+        sinon.stub(helper.synchronizer, 'broadcast').resolves(response);
+        const promise = helper._process(mockInputContext);
+        mockOutputContext.publish = () => {
+          mockOutputContext.emit('done', brickName, response);
+        };
+        return promise.then(() => {
+          sinon.assert.calledWith(mockInputContext.emit,
+            'done', helper.cementHelper.brickName, response);
+        });
       });
     });
 
@@ -82,9 +81,14 @@ describe('BusinessLogics - Schedule - Delete - _process', function() {
       it('should emit reject event on inputContext', function() {
         const error = new Error('mockError');
         const brickName = 'dbinterface';
-        mockOutputContext.emit('reject', brickName, error);
-        sinon.assert.calledWith(mockInputContext.emit,
-          'reject', brickName, error);
+        const promise = helper._process(mockInputContext);
+        mockOutputContext.publish = () => {
+          mockOutputContext.emit('reject', brickName, error);
+        };
+        return promise.then(() => {
+          sinon.assert.calledWith(mockInputContext.emit,
+            'reject', brickName, error);
+        });
       });
     });
 
@@ -92,9 +96,14 @@ describe('BusinessLogics - Schedule - Delete - _process', function() {
       it('should emit error event on inputContext', function() {
         const error = new Error('mockError');
         const brickName = 'dbinterface';
-        mockOutputContext.emit('error', brickName, error);
-        sinon.assert.calledWith(mockInputContext.emit,
-          'error', brickName, error);
+        const promise = helper._process(mockInputContext);
+        mockOutputContext.publish = () => {
+          mockOutputContext.emit('error', brickName, error);
+        };
+        return promise.then(() => {
+          sinon.assert.calledWith(mockInputContext.emit,
+            'error', brickName, error);
+        });
       });
     });
   });

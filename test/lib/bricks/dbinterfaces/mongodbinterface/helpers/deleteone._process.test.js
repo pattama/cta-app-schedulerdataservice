@@ -1,11 +1,10 @@
 'use strict';
 
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const sinon = require('sinon');
 const nodepath = require('path');
 const ObjectID = require('bson').ObjectID;
 const requireSubvert = require('require-subvert')(__dirname);
-const _ = require('lodash');
 
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
@@ -35,7 +34,7 @@ describe('DatabaseInterfaces - MongoDB - DeleteOne - constructor', function() {
       quality: 'deleteone',
     },
     payload: {
-      type: 'schedule',
+      type: 'schedules',
       id: mockId.toString(),
     },
   };
@@ -90,8 +89,8 @@ describe('DatabaseInterfaces - MongoDB - DeleteOne - constructor', function() {
           const responseDocument = {
             _id: mockId,
           };
-          //const responseObject = _.omit(responseDocument, ['_id']);
-          //responseObject.id = responseDocument._id.toString();
+          // const responseObject = _.omit(responseDocument, ['_id']);
+          // responseObject.id = responseDocument._id.toString();
           const response = {
             ok: 1,
             value: responseDocument,

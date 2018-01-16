@@ -1,5 +1,5 @@
 'use strict';
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const sinon = require('sinon');
 const nodepath = require('path');
 const ObjectID = require('bson').ObjectID;
@@ -21,7 +21,7 @@ const DEFAULTCEMENTHELPER = {
   createContext: function() {},
 };
 
-describe('Utils - RESTAPI - Handlers - Schedules - findById', function() {
+describe('Utils - RESTAPI - Handlers - Schedules - deleteByObjIdType', function() {
   let handler;
   before(function() {
     handler = new Handler(DEFAULTCEMENTHELPER);
@@ -42,11 +42,12 @@ describe('Utils - RESTAPI - Handlers - Schedules - findById', function() {
       };
       data = {
         nature: {
-          type: 'schedule',
-          quality: 'findbyid',
+          type: 'schedules',
+          quality: 'deletebyobjidtype',
         },
         payload: {
-          id: req.params.id,
+          objId: req.params.objId,
+          type: req.params.type,
         },
       };
       mockContext = new EventEmitter();
@@ -59,7 +60,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - findById', function() {
       handler.cementHelper.createContext.restore();
     });
     it('should send a new Context', function() {
-      handler.findById(req, res, null);
+      handler.deleteByObjIdType(req, res, null);
       sinon.assert.calledWith(handler.cementHelper.createContext, data);
       sinon.assert.called(mockContext.publish);
     });
@@ -68,14 +69,14 @@ describe('Utils - RESTAPI - Handlers - Schedules - findById', function() {
       context('when document is found', function() {
         before(function() {
           sinon.spy(res, 'send');
-          handler.findById(req, res, null);
+          handler.deleteByObjIdType(req, res, null);
         });
         after(function() {
           res.send.restore();
         });
         it('should send the found Object (res.send())', function() {
           const mockBrickname = 'businesslogic';
-          const response = { id: req.params.id };
+          const response = { objId: req.params.objId, type: req.params.type };
           mockContext.emit('done', mockBrickname, response);
           sinon.assert.calledWith(res.send, response);
         });
@@ -85,7 +86,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - findById', function() {
         before(function() {
           sinon.spy(res, 'status');
           sinon.spy(res, 'send');
-          handler.findById(req, res, null);
+          handler.deleteByObjIdType(req, res, null);
         });
         after(function() {
           res.status.restore();
@@ -105,7 +106,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - findById', function() {
       before(function() {
         sinon.spy(res, 'status');
         sinon.spy(res, 'send');
-        handler.findById(req, res, null);
+        handler.deleteByObjIdType(req, res, null);
       });
       after(function() {
         res.status.restore();
@@ -124,7 +125,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - findById', function() {
       before(function() {
         sinon.spy(res, 'status');
         sinon.spy(res, 'send');
-        handler.findById(req, res, null);
+        handler.deleteByObjIdType(req, res, null);
       });
       after(function() {
         res.status.restore();

@@ -1,6 +1,6 @@
 'use strict';
 
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
@@ -34,13 +34,18 @@ describe('DatabaseInterfaces - MongoDB - Find - _validate', function() {
       quality: 'findbyid',
     },
     payload: {
-      type: 'schedule',
+      type: 'schedules',
       filter: {
         limit: 10,
         offset: 0,
       },
       query: {
-        foo: 'bar',
+        rest: {
+          url: '',
+          method: '',
+          headers: {},
+          body: {},
+        },
       },
     },
   };

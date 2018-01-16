@@ -1,6 +1,6 @@
 'use strict';
 
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const chai = require('chai');
 const expect = chai.expect;
 const sinon = require('sinon');
@@ -10,7 +10,7 @@ const requireSubvert = require('require-subvert')(__dirname);
 const Context = require('cta-flowcontrol').Context;
 const Logger = require('cta-logger');
 const logicPath = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/', 'index.js');
+  '/lib/bricks/businesslogics/schedules/', 'index.js');
 
 const DEFAULTCONFIG = require('./index.config.testdata.js');
 const DEFAULTLOGGER = new Logger(null, null, DEFAULTCONFIG.name);
@@ -27,19 +27,17 @@ const DEFAULTCEMENTHELPER = {
 
 describe('BusinessLogics - Schedule - getAllSchedules', function() {
   let logic;
-  let stubCallback;
   context('when everything ok', function() {
     let mockOutputContext;
     let outputJob;
     before(function() {
-
       outputJob = {
         nature: {
           type: 'dbinterface',
           quality: 'find',
         },
         payload: {
-          type: 'schedule',
+          type: 'schedules',
           filter: { limit: 0, offset: 0 },
           query: {},
         },
@@ -47,12 +45,11 @@ describe('BusinessLogics - Schedule - getAllSchedules', function() {
       mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJob);
       mockOutputContext.publish = sinon.stub();
 
+      // eslint-disable-next-line global-require
       const Logic = require(logicPath);
       logic = new Logic(DEFAULTCEMENTHELPER, DEFAULTCONFIG);
       sinon.stub(logic.cementHelper, 'createContext')
         .returns(mockOutputContext);
-
-      stubCallback = sinon.stub();
     });
     after(function() {
       requireSubvert.cleanUp();
@@ -65,7 +62,7 @@ describe('BusinessLogics - Schedule - getAllSchedules', function() {
       return promise.then(() => {
         sinon.assert.calledWith(logic.cementHelper.createContext, outputJob);
         sinon.assert.called(mockOutputContext.publish);
-      })
+      });
     });
 
     context('when outputContext emits done event', function() {
@@ -87,7 +84,7 @@ describe('BusinessLogics - Schedule - getAllSchedules', function() {
           .then((err) => {
             expect(err).to.have.property('returnCode', 'reject');
             expect(err).to.have.property('brickName', 'dbinterface');
-          })
+          });
       });
     });
 
@@ -102,7 +99,7 @@ describe('BusinessLogics - Schedule - getAllSchedules', function() {
           .then((err) => {
             expect(err).to.have.property('returnCode', 'error');
             expect(err).to.have.property('brickName', brickName);
-          })
+          });
       });
     });
   });

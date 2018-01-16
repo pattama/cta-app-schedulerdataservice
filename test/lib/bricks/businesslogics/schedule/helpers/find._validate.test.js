@@ -1,6 +1,6 @@
 'use strict';
 
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
@@ -11,7 +11,7 @@ const _ = require('lodash');
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
 const Helper = require(nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/helpers', 'find.js'));
+  '/lib/bricks/businesslogics/schedules/helpers', 'find.js'));
 
 const DEFAULTCONFIG = require('../index.config.testdata.js');
 const DEFAULTLOGGER = new Logger(null, null, DEFAULTCONFIG.name);
@@ -38,11 +38,16 @@ describe('BusinessLogics - Schedule - Find - _validate', function() {
         limit: 10,
         offset: 0,
         sort: {
-          _id: -1
+          _id: -1,
         },
       },
       query: {
-        foo: 'bar',
+        rest: {
+          url: '',
+          method: '',
+          headers: {},
+          body: {},
+        },
       },
     },
   };

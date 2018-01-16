@@ -1,6 +1,6 @@
 'use strict';
 
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
@@ -36,7 +36,7 @@ describe('DatabaseInterfaces - MongoDB - InsertOne - _validate', function() {
       quality: 'insertone',
     },
     payload: {
-      type: 'schedule',
+      type: 'schedules',
       content: {
         id: mockId.toString(),
       },

@@ -1,16 +1,15 @@
 'use strict';
 
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const sinon = require('sinon');
 const requireSubvert = require('require-subvert')(__dirname);
 const nodepath = require('path');
 const ObjectID = require('bson').ObjectID;
-const _ = require('lodash');
 
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
 const pathToHelper = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/helpers/', 'update.js');
+  '/lib/bricks/businesslogics/schedules/helpers/', 'update.js');
 const Helper = require(pathToHelper);
 
 const DEFAULTCONFIG = require('../index.config.testdata.js');
@@ -37,7 +36,6 @@ describe('BusinessLogics - Schedule - Update - _process', function() {
       },
       payload: {
         id: mockId.toString(),
-        content: {},
       },
     };
     const mockInputContext = new Context(DEFAULTCEMENTHELPER, DEFAULTINPUTJOB);
@@ -51,38 +49,36 @@ describe('BusinessLogics - Schedule - Update - _process', function() {
           quality: 'updateone',
         },
         payload: {
-          type: 'schedule',
+          type: 'schedules',
           id: DEFAULTINPUTJOB.payload.id,
-          content: DEFAULTINPUTJOB.payload.content,
+          content: {},
         },
       };
       mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJOB);
-      mockOutputContext.publish = sinon.stub();
 
       helper = new Helper(DEFAULTCEMENTHELPER, DEFAULTLOGGER);
       sinon.stub(helper.cementHelper, 'createContext')
         .withArgs(outputJOB)
         .returns(mockOutputContext);
-      helper._process(mockInputContext);
     });
     after(function() {
       requireSubvert.cleanUp();
       helper.cementHelper.createContext.restore();
     });
 
-    it('should send a new Context insertone', function() {
-      sinon.assert.calledWith(helper.cementHelper.createContext, outputJOB);
-      sinon.assert.called(mockOutputContext.publish);
-    });
-
     context('when outputContext emits done event', function() {
       it('should emit done event on inputContext', function() {
         const response = {};
-        const stubBroadcast = sinon.stub(helper.synchronizer, 'broadcast');
-        stubBroadcast.callsArgWith(2, 'done', 'dblayer', response);
-        mockOutputContext.emit('done', 'dblayer', response);
-        sinon.assert.calledWith(mockInputContext.emit,
-          'done', helper.cementHelper.brickName, response);
+        sinon.stub(helper, 'acknowledgeMessage').resolves();
+        sinon.stub(helper.synchronizer, 'broadcast').resolves(response);
+        const promise = helper._process(mockInputContext);
+        mockOutputContext.publish = () => {
+          mockOutputContext.emit('done', 'dblayer', response);
+        };
+        return promise.then(() => {
+          sinon.assert.calledWith(mockInputContext.emit,
+            'done', helper.cementHelper.brickName, response);
+        });
       });
     });
 
@@ -90,9 +86,14 @@ describe('BusinessLogics - Schedule - Update - _process', function() {
       it('should emit reject event on inputContext', function() {
         const error = new Error('mockError');
         const brickName = 'dbinterface';
-        mockOutputContext.emit('reject', brickName, error);
-        sinon.assert.calledWith(mockInputContext.emit,
-          'reject', brickName, error);
+        const promise = helper._process(mockInputContext);
+        mockOutputContext.publish = () => {
+          mockOutputContext.emit('reject', brickName, error);
+        };
+        return promise.then(() => {
+          sinon.assert.calledWith(mockInputContext.emit,
+            'reject', brickName, error);
+        });
       });
     });
 
@@ -100,9 +101,14 @@ describe('BusinessLogics - Schedule - Update - _process', function() {
       it('should emit error event on inputContext', function() {
         const error = new Error('mockError');
         const brickName = 'dbinterface';
-        mockOutputContext.emit('error', brickName, error);
-        sinon.assert.calledWith(mockInputContext.emit,
-          'error', brickName, error);
+        const promise = helper._process(mockInputContext);
+        mockOutputContext.publish = () => {
+          mockOutputContext.emit('error', brickName, error);
+        };
+        return promise.then(() => {
+          sinon.assert.calledWith(mockInputContext.emit,
+            'error', brickName, error);
+        });
       });
     });
   });

@@ -1,5 +1,5 @@
 'use strict';
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const sinon = require('sinon');
 const _ = require('lodash');
 const nodepath = require('path');
@@ -43,7 +43,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - create', function() {
       req.body = _.cloneDeep(SCHEDULE);
       data = {
         nature: {
-          type: 'schedule',
+          type: 'schedules',
           quality: 'create',
         },
         payload: req.body,
@@ -140,7 +140,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - create', function() {
         req.body = _.cloneDeep(SCHEDULE);
         data = {
           nature: {
-            type: 'schedule',
+            type: 'schedules',
             quality: 'create',
           },
           payload: req.body,

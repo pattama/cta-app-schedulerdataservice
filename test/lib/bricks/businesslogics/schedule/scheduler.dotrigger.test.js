@@ -1,20 +1,17 @@
 'use strict';
 
 const chai = require('chai');
-const expect = chai.expect;
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const sinon = require('sinon');
 
 const Logger = require('cta-logger');
 const nodepath = require('path');
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const pathToScheduler = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/', 'scheduler.js');
+  '/lib/bricks/businesslogics/schedules/', 'scheduler.js');
 
 const ObjectID = require('bson').ObjectID;
-
-
 
 describe('BusinessLogics - Schedule - Scheduler - doTrigger', function() {
   let scheduleObj;
@@ -24,7 +21,6 @@ describe('BusinessLogics - Schedule - Scheduler - doTrigger', function() {
   let stubLoggerInfo;
   let scheduler;
   before(function() {
-
     scheduleObj = {
       scheduleId: (new ObjectID()).toString(),
       schedule: '* * * * *',
@@ -32,24 +28,24 @@ describe('BusinessLogics - Schedule - Scheduler - doTrigger', function() {
         method: 'POST',
         url: 'http://www.google.com',
         headers: {
-          "Content-Type": 'application/json'
+          'Content-Type': 'application/json',
         },
         body: {
-          "nothing in real": 'just to show people can add headers and body'
-        }
-      }
+          'nothing in real': 'just to show people can add headers and body',
+        },
+      },
     };
 
+    // eslint-disable-next-line global-require
     const Scheduler = require(pathToScheduler);
-    scheduler = new Scheduler(undefined, new Logger());
-
+    scheduler = new Scheduler(undefined, new Logger(), 'name');
   });
   beforeEach(function() {
     stubReserveSchedule = sinon.stub(scheduler, 'reserveSchedule');
     stubSendRequest = sinon.stub(scheduler.requester, 'sendRequest');
     stubLoggerError = sinon.stub(scheduler.logger, 'error');
     stubLoggerInfo = sinon.stub(scheduler.logger, 'info');
-  })
+  });
   afterEach(function() {
     stubReserveSchedule.restore();
     stubSendRequest.restore();

@@ -1,13 +1,14 @@
 'use strict';
 
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const sinon = require('sinon');
+const expect = require('chai').expect;
 const nodepath = require('path');
 
 const Logger = require('cta-logger');
 const Context = require('cta-flowcontrol').Context;
 const pathToSynchronizer = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/', 'synchronizer.js');
+  '/lib/bricks/businesslogics/schedules/', 'synchronizer.js');
 const Synchronizer = require(pathToSynchronizer);
 
 const DEFAULTCONFIG = require('./index.config.testdata.js');
@@ -42,27 +43,27 @@ describe('BusinessLogics - Schedule - Synchronizer - broadcast', function() {
           method: 'POST',
           url: 'http://www.google.com',
           headers: {
-            "Content-Type": 'application/json'
+            'Content-Type': 'application/json',
           },
           body: {
-            "nothing in real": 'just to show people can add headers and body'
-          }
-        }
-      }
+            'nothing in real': 'just to show people can add headers and body',
+          },
+        },
+      };
       outputJOB = {
         nature: {
-          type: 'message',
+          type: 'messages',
           quality: 'publish',
         },
         payload: {
           nature: {
-            type: 'schedule',
-            quality: 'synchronize'
+            type: 'schedules',
+            quality: 'synchronize',
           },
           payload: {
             action: action,
-            content: content
-          }
+            content: content,
+          },
         },
       };
       mockOutputContext = new Context(DEFAULTCEMENTHELPER, outputJOB);
@@ -72,23 +73,26 @@ describe('BusinessLogics - Schedule - Synchronizer - broadcast', function() {
       sinon.stub(synchronizer.cementHelper, 'createContext')
         .withArgs(outputJOB)
         .returns(mockOutputContext);
-      synchronizer.broadcast(action, content, stubCallback);
     });
     after(function() {
       synchronizer.cementHelper.createContext.restore();
     });
 
     it('should send a new Context insertone', function() {
-      sinon.assert.calledWith(synchronizer.cementHelper.createContext, outputJOB);
-      sinon.assert.called(mockOutputContext.publish);
+      const promise = synchronizer.broadcast(action, content, stubCallback);
+      mockOutputContext.emit('done', 'scheduler', '');
+      return promise.then(() => {
+        sinon.assert.calledWith(synchronizer.cementHelper.createContext, outputJOB);
+        sinon.assert.called(mockOutputContext.publish);
+      });
     });
 
     context('when outputContext emits done event', function() {
       it('should emit done event on inputContext', function() {
         const response = {};
+        const promise = synchronizer.broadcast(action, content, stubCallback);
         mockOutputContext.emit('done', 'scheduler', response);
-        sinon.assert.calledWith(stubCallback,
-          'done', DEFAULTCEMENTHELPER.brickName, response);
+        return expect(promise).to.eventually.equal(response);
       });
     });
 
@@ -96,9 +100,13 @@ describe('BusinessLogics - Schedule - Synchronizer - broadcast', function() {
       it('should emit reject event on inputContext', function() {
         const error = new Error('mockError');
         const brickName = 'dbinterface';
+        const promise = synchronizer.broadcast(action, content, stubCallback);
         mockOutputContext.emit('reject', brickName, error);
-        sinon.assert.calledWith(stubCallback,
-          'reject', brickName, error);
+        return expect(promise).to.eventually.be.rejectedWith({
+          returnCode: 'reject',
+          brickName: brickName,
+          response: error,
+        });
       });
     });
 
@@ -106,9 +114,13 @@ describe('BusinessLogics - Schedule - Synchronizer - broadcast', function() {
       it('should emit error event on inputContext', function() {
         const error = new Error('mockError');
         const brickName = 'dbinterface';
+        const promise = synchronizer.broadcast(action, content, stubCallback);
         mockOutputContext.emit('error', brickName, error);
-        sinon.assert.calledWith(stubCallback,
-          'error', brickName, error);
+        return expect(promise).to.eventually.be.rejectedWith({
+          returnCode: 'error',
+          brickName: brickName,
+          response: error,
+        });
       });
     });
   });

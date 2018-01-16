@@ -1,5 +1,5 @@
 'use strict';
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const chai = require('chai');
 const expect = chai.expect;
 const nodepath = require('path');
@@ -28,7 +28,7 @@ describe('Utils - RESTAPI - Handlers - Schedules - constructor', function() {
     it('should return a handler instance', function() {
       expect(handler).to.be.an.instanceof(Handler);
       expect(handler).to.have.property('cementHelper', DEFAULTCEMENTHELPER);
-      expect(handler).to.have.property('dataType', 'schedule');
+      expect(handler).to.have.property('dataType', 'schedules');
     });
   });
 });

@@ -1,6 +1,6 @@
 'use strict';
 
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const chai = require('chai');
 const expect = chai.expect;
 const nodepath = require('path');
@@ -18,7 +18,8 @@ describe('Data Model - Schedule', function() {
     expect(object).to.have.deep.property('rest.method', data.rest.method);
     expect(object).to.have.deep.property('rest.url', data.rest.url);
     expect(object).to.have.deep.property('rest.headers', data.rest.headers);
-    expect(object).to.have.deep.property('rest.headers.Content-Type', data.rest.headers['Content-Type']);
+    expect(object).to.have.deep.property('rest.headers.Content-Type',
+      data.rest.headers['Content-Type']);
     expect(object).to.have.deep.property('rest.body', data.rest.body);
   });
 });

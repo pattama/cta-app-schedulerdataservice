@@ -1,6 +1,6 @@
 'use strict';
 
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const sinon = require('sinon');
 const nodepath = require('path');
 const ObjectID = require('bson').ObjectID;
@@ -34,7 +34,7 @@ describe('DatabaseInterfaces - MongoDB - InsertOne - constructor', function() {
       quality: 'insertone',
     },
     payload: {
-      type: 'schedule',
+      type: 'schedules',
       content: {
         id: mockId.toString(),
       },

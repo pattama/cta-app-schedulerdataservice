@@ -1,5 +1,5 @@
 'use strict';
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const sinon = require('sinon');
 const nodepath = require('path');
 const _ = require('lodash');
@@ -49,14 +49,14 @@ describe('Utils - RESTAPI - Handlers - Schedules - find', function() {
         limit: parseInt(req.query.limit, 10),
         offset: parseInt(req.query.offset, 0),
         sort: {
-          _id: -1
+          _id: -1,
         },
       };
       const query = Schedule.convertQueryStrings(_.omit(req.query, Object.keys(filter)));
       sinonCustomMatcher = sinon.match(function(data) {
         return _.isEqual(data, {
           nature: {
-            type: 'schedule',
+            type: 'schedules',
             quality: 'find',
           },
           payload: {

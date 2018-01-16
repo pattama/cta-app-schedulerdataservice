@@ -1,14 +1,12 @@
 'use strict';
 
-const chai = require('chai');
-const expect = chai.expect;
 const sinon = require('sinon');
 
 const requireSubvert = require('require-subvert')(__dirname);
 const nodepath = require('path');
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const pathToScheduler = nodepath.join(appRootPath,
-  '/lib/bricks/businesslogics/schedule/', 'scheduler.js');
+  '/lib/bricks/businesslogics/schedules/', 'scheduler.js');
 
 
 describe('BusinessLogics - Schedule - Scheduler - deleteSchedule', function() {
@@ -16,9 +14,8 @@ describe('BusinessLogics - Schedule - Scheduler - deleteSchedule', function() {
   let stubNodeSchedule;
   let scheduler;
   before(function() {
-
     stubNodeSchedule = sinon.stub();
-    requireSubvert.subvert('node-schedule', { 'cancelJob': stubNodeSchedule });
+    requireSubvert.subvert('node-schedule', { cancelJob: stubNodeSchedule });
 
     const Scheduler = requireSubvert.require(pathToScheduler);
     scheduler = new Scheduler();

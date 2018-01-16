@@ -1,6 +1,6 @@
 'use strict';
 
-const appRootPath = require('app-root-path').path;
+const appRootPath = require('cta-common').root('cta-app-schedulerdataservice');
 const sinon = require('sinon');
 const nodepath = require('path');
 
@@ -31,12 +31,12 @@ describe('DatabaseInterfaces - MongoDB - Find - _process', function() {
       quality: 'findbyid',
     },
     payload: {
-      type: 'schedule',
+      type: 'schedules',
       filter: {
         limit: 10,
         offset: 0,
         sort: {
-          _id: -1
+          _id: -1,
         },
       },
       query: {
