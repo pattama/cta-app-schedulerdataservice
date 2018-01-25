@@ -1,5 +1,7 @@
 # cta-app-schedulerdataservice
-[![build status](https://git.sami.int.thomsonreuters.com/compass/cta-app-schedulerdataservice/badges/master/build.svg)](https://git.sami.int.thomsonreuters.com/compass/cta-app-schedulerdataservice/commits/master)[![coverage report](https://git.sami.int.thomsonreuters.com/compass/cta-app-schedulerdataservice/badges/master/coverage.svg)](https://git.sami.int.thomsonreuters.com/compass/cta-app-schedulerdataservice/commits/master)
+[![Build Status](https://travis-ci.org/thomsonreuters/cta-app-schedulerdataservice.svg?branch=master)](https://travis-ci.org/thomsonreuters/cta-app-schedulerdataservice)
+[![Coverage Status](https://coveralls.io/repos/github/thomsonreuters/cta-app-schedulerdataservice/badge.svg?branch=master)](https://coveralls.io/github/thomsonreuters/cta-app-schedulerdataservice?branch=master)
+[![codecov](https://codecov.io/gh/thomsonreuters/cta-app-schedulerdataservice/branch/master/graph/badge.svg)](https://codecov.io/gh/thomsonreuters/cta-app-schedulerdataservice)
 
 **Scheduler Data Service Application (SCH)**  for Compass Test Automation, implementing CTA-OSS Framework
 
